@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState } from 'react'
+import Activity from './components/Activity'
 
 const App = () => {
 
@@ -79,6 +80,17 @@ const App = () => {
     }
   ]
 
+  const getRandom = () => {
+    return activities[Math.floor(Math.random() * activities.length)]
+  }
+
+  const [ activity, setActivity ] = useState(getRandom())
+
+  const findRandom = (event) => {
+    event.preventDefault()
+    setActivity(getRandom())
+  }
+
   const findActivity = (event) => {
     event.preventDefault()
     console.log("activity form submitted")
@@ -89,7 +101,7 @@ const App = () => {
       <h1>Bored?</h1>
       <h2>Find something to do:</h2>
 
-      <form onSubmit={ findActivity }>
+      <form>
         <fieldset>
           <label htmlFor="type">Type</label> <br />
           <select name="type">
@@ -117,13 +129,18 @@ const App = () => {
           5<input type="checkbox" name="participants" value="participants_5" />
         </fieldset>
 
+        {/* API uses [0.0 - 1.0] */}
         <fieldset>
           <label htmlFor="price">Price</label> <br />
-          <input type="range" name="price" min="0" max="100" step="10" />
+          <input type="range" name="price" min="0" max="10" />
         </fieldset>
 
-        <button type="submit">Show me an activity</button>
+        <button onClick={ findActivity }>Show me an activity</button>
+        <button onClick={ findRandom }>Show me a random activity</button>
       </form>
+
+      <h2>You should try:</h2>
+      <Activity activity={ activity } />
     </div>
   )
 }

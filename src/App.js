@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import Activity from './components/Activity'
 
 const App = () => {
@@ -97,51 +98,78 @@ const App = () => {
   }
 
   return (
-    <div>
-      <h1>Bored?</h1>
-      <h2>Find something to do:</h2>
+    <Router>
+      <div>
+        <Link to="/">Home</Link>
+        <Link to="/leaderboard">Leaderboard</Link>
+        <Link to="/my">My Activities</Link>
+        <Link to="/login">Log In/Register</Link>
+      </div>
 
-      <form>
-        <fieldset>
-          <label htmlFor="type">Type</label> <br />
-          <select name="type">
-            <option value="education">Education</option>
-            <option value="recreational">Recreational</option>
-            <option value="social">Social</option>
-            <option value="DIY">DIY</option>
-            <option value="charity">Charity</option>
-            <option value="cooking">Cooking</option>
-            <option value="relaxation">Relaxation</option>
-            <option value="music">Music</option>
-            <option value="busywork">Busywork</option>
-          </select>
-        </fieldset>
+      <Switch>
+    
+        <Route path="/leaderboard">
+          <h1>Activity Leaderboard</h1>
+        </Route>
 
-        {/* activities.json from API currently doesn't have any activities with more than 5 participants */}
-        {/* change this implementation? */}
-        <fieldset>
-          <label htmlFor="participants">Participants</label> <br />
-          Any<input type="checkbox" name="participants" value="participants_any" />
-          1<input type="checkbox" name="participants" value="participants_1" />
-          2<input type="checkbox" name="participants" value="participants_2" />
-          3<input type="checkbox" name="participants" value="participants_3" />
-          4<input type="checkbox" name="participants" value="participants_4" />
-          5<input type="checkbox" name="participants" value="participants_5" />
-        </fieldset>
+        <Route path="/my">
+          <h1>My Activites</h1>
+        </Route>
 
-        {/* API uses [0.0 - 1.0] */}
-        <fieldset>
-          <label htmlFor="price">Price</label> <br />
-          <input type="range" name="price" min="0" max="10" />
-        </fieldset>
+        <Route path="/login">
+          <h1>Login/Register</h1>
+        </Route>
 
-        <button onClick={ findActivity }>Show me an activity</button>
-        <button onClick={ findRandom }>Show me a random activity</button>
-      </form>
+        <Route path="/">
+          <div>
+            <h1>Bored?</h1>
+            <h2>Find something to do:</h2>
 
-      <h2>You should try:</h2>
-      <Activity activity={ activity } />
-    </div>
+            <form>
+              <fieldset>
+                <label htmlFor="type">Type</label> <br />
+                <select name="type">
+                  <option value="education">Education</option>
+                  <option value="recreational">Recreational</option>
+                  <option value="social">Social</option>
+                  <option value="DIY">DIY</option>
+                  <option value="charity">Charity</option>
+                  <option value="cooking">Cooking</option>
+                  <option value="relaxation">Relaxation</option>
+                  <option value="music">Music</option>
+                  <option value="busywork">Busywork</option>
+                </select>
+              </fieldset>
+
+              {/* activities.json from API currently doesn't have any activities with more than 5 participants */}
+              {/* change this implementation? */}
+              <fieldset>
+                <label htmlFor="participants">Participants</label> <br />
+                Any<input type="checkbox" name="participants" value="participants_any" />
+                1<input type="checkbox" name="participants" value="participants_1" />
+                2<input type="checkbox" name="participants" value="participants_2" />
+                3<input type="checkbox" name="participants" value="participants_3" />
+                4<input type="checkbox" name="participants" value="participants_4" />
+                5<input type="checkbox" name="participants" value="participants_5" />
+              </fieldset>
+
+              {/* API uses [0.0 - 1.0] */}
+              <fieldset>
+                <label htmlFor="price">Price</label> <br />
+                <input type="range" name="price" min="0" max="10" />
+              </fieldset>
+
+              <button onClick={ findActivity }>Show me an activity</button>
+              <button onClick={ findRandom }>Show me a random activity</button>
+            </form>
+
+            <h2>You should try:</h2>
+            <Activity activity={ activity } />
+          </div>
+        </Route>
+
+      </Switch>
+    </Router>
   )
 }
 

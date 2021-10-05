@@ -1,5 +1,6 @@
 import React from 'react'
 
+//component to allow the user to login using a username and password
 const LoginForm = ({loginFn}) => {
     
     return (

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import Activity from './components/Activity'
 import LoginForm from './components/LoginForm'
+import UserDisplay from './components/UserDisplay'
 
 const App = () => {
 
@@ -100,9 +101,17 @@ const App = () => {
     console.log("activity form submitted")
   }
 
-  const userLogin = () => {
+  //function that logs in a user
+  const userLogin = (event) => {
+    event.preventDefault()
     console.log("logging in user")
     setUser("Test User")
+  }
+
+  //function that logs out a user
+  const userLogout = () => {
+    console.log("logging out")
+    setUser(null)
   }
 
   return (
@@ -115,7 +124,7 @@ const App = () => {
       </div>
 
       <div>
-        <h3>Not Logged In</h3>
+        <UserDisplay user={user} logoutFn={userLogout} />
       </div>
 
       <Switch>

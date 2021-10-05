@@ -138,10 +138,21 @@ const App = () => {
     
         <Route path="/leaderboard">
           <h1>Activity Leaderboard</h1>
+          <p>[1] User 1 - FIRST PLACE</p>
+          <p>[2] User 4 - SECOND PLACE</p>
+          <p>[3] User 2 - THIRD PLACE</p>
+          <p>[4] User 5 - FOURTH PLACE</p>
+          <p>[5] User 4 - FIFTH PLACE</p>
         </Route>
 
         <Route path="/my">
           <h1>My Activites</h1>
+          <p>Learn Express.js</p>
+          <p>Bake something you've never tried before</p>
+          <p>Learn how to play a new sport</p>
+          <p>Text a friend you haven't talked to in a long time</p>
+          <p>Meditate for five minutes</p>
+          <p>Learn to play a new instrument</p>
         </Route>
 
         <Route path="/login">

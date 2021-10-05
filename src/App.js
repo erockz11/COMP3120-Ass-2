@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import Activity from './components/Activity'
+import LoginForm from './components/LoginForm'
 
 const App = () => {
 
@@ -87,6 +88,8 @@ const App = () => {
 
   const [ activity, setActivity ] = useState(getRandom())
 
+  const [ user, setUser ] = useState(null)
+
   const findRandom = (event) => {
     event.preventDefault()
     setActivity(getRandom())
@@ -97,6 +100,11 @@ const App = () => {
     console.log("activity form submitted")
   }
 
+  const userLogin = () => {
+    console.log("logging in user")
+    setUser("Test User")
+  }
+
   return (
     <Router>
       <div>
@@ -104,6 +112,10 @@ const App = () => {
         <Link to="/leaderboard">Leaderboard</Link>
         <Link to="/my">My Activities</Link>
         <Link to="/login">Log In/Register</Link>
+      </div>
+
+      <div>
+        <h3>Not Logged In</h3>
       </div>
 
       <Switch>
@@ -117,7 +129,7 @@ const App = () => {
         </Route>
 
         <Route path="/login">
-          <h1>Login/Register</h1>
+          <LoginForm loginFn={userLogin} />
         </Route>
 
         <Route path="/">

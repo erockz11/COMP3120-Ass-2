@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import Activity from './components/Activity'
 import LoginForm from './components/LoginForm'
+import RegisterForm from './components/RegisterForm'
 import UserDisplay from './components/UserDisplay'
 
 const App = () => {
@@ -114,6 +115,12 @@ const App = () => {
     setUser(null)
   }
 
+  //function that registers a new user
+  const userRegister = (event) => {
+    event.preventDefault()
+    console.log("Registering a new user")
+  }
+
   return (
     <Router>
       <div>
@@ -139,6 +146,7 @@ const App = () => {
 
         <Route path="/login">
           <LoginForm loginFn={userLogin} />
+          <RegisterForm registerFn={userRegister} />
         </Route>
 
         <Route path="/">

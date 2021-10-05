@@ -6,15 +6,15 @@ const LoginForm = ({loginFn}) => {
     return (
         <div>
             <div>
-                <h1>Login/Register</h1>
+                <h1>Login</h1>
             </div>
             <form onSubmit={loginFn}>
-                <div className="form-container">
-                    <label htmlFor="username"><b>UserName</b></label>
-                    <input type="text" placeholder="Enter Username" name="username" required></input>
+                <div className="login-form-container">
+                    <label htmlFor="username"><b>Username</b></label>
+                    <input type="text" placeholder="Enter Username" name="username"></input>
 
                     <label htmlFor="pword"><b>Password</b></label>
-                    <input type="password" placeholder="Enter Password" name="pword" required></input>
+                    <input type="password" placeholder="Enter Password" name="pword"></input>
 
                     <button>Login</button>
                 </div>

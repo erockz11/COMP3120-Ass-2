@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import Activity from './components/Activity'
+import Leaderboard from './components/Leaderboard'
 import LoginForm from './components/LoginForm'
 import RegisterForm from './components/RegisterForm'
 import UserDisplay from './components/UserDisplay'
@@ -137,12 +138,7 @@ const App = () => {
       <Switch>
     
         <Route path="/leaderboard">
-          <h1>Activity Leaderboard</h1>
-          <p>[1] User 1 - FIRST PLACE</p>
-          <p>[2] User 4 - SECOND PLACE</p>
-          <p>[3] User 2 - THIRD PLACE</p>
-          <p>[4] User 5 - FOURTH PLACE</p>
-          <p>[5] User 4 - FIFTH PLACE</p>
+          <Leaderboard/>
         </Route>
 
         <Route path="/my">

@@ -5,6 +5,7 @@ import Leaderboard from './components/Leaderboard'
 import LoginForm from './components/LoginForm'
 import RegisterForm from './components/RegisterForm'
 import UserDisplay from './components/UserDisplay'
+import MyActivities from './components/MyActivities'
 
 const App = () => {
 
@@ -142,13 +143,7 @@ const App = () => {
         </Route>
 
         <Route path="/my">
-          <h1>My Activites</h1>
-          <p>Learn Express.js</p>
-          <p>Bake something you've never tried before</p>
-          <p>Learn how to play a new sport</p>
-          <p>Text a friend you haven't talked to in a long time</p>
-          <p>Meditate for five minutes</p>
-          <p>Learn to play a new instrument</p>
+          <MyActivities/>
         </Route>
 
         <Route path="/login">

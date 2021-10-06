@@ -19,7 +19,7 @@ const UserDisplay = ({user, logoutFn}) => {
     } else {
         return (
             <div>
-                <h3>Not Logged In</h3>
+                
             </div>
         )
     }

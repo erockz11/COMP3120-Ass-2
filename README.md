@@ -20,3 +20,40 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
+
+
+
+# Application Outline
+
+(An outline of the application you were aiming to build, target users, data sources etc (similar to the proposal))
+
+# Included in this MVP
+
+(A description of what you have been able to implement in this MVP, use your milestones to highlight what you've achieved)
+
+# Project Breakdown
+
+(A guide to the project source code - where should we look for what you have done)
+
+## Components
+
+All components are located in the `components` folder.
+
+- `Activity.js`: Displays information for a single activity, passed as props
+- `Leaderboard.js`:
+- `LoginForm.js`:
+- `MyActivities.js`:
+- `RegisterForm.js`:
+- `UserDisplay.js`:
+
+## Other Files
+
+- `App.js`:
+
+# Next Steps
+
+(A summary of what your next steps would be if you were to continue the project)
+
+# Summary of Team Roles/Contributions
+
+(A summary of the main roles and contributions of each team member and how you managed interaction and communication through the project)

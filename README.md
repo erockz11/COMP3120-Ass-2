@@ -49,6 +49,7 @@ All components are located in the `components` folder.
 ## Other Files
 
 - `App.js`:
+- `/services/activities.js`: Handles requests to the API (see https://www.boredapi.com/documentation for more information)
 
 # Next Steps
 

@@ -16,4 +16,9 @@ const getParticipants = (participants) => {
     return request.then(response => response.data)
 }
 
-export default { getRandom, getType, getParticipants }
+const getPrice = (price) => {
+    const request = axios.get(baseUrl + '?price=' + price)
+    return request.then(response => response.data)
+}
+
+export default { getRandom, getType, getParticipants, getPrice }

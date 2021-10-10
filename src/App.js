@@ -96,6 +96,7 @@ const App = () => {
   const [ user, setUser ] = useState(null)
   const [ activityType, setActivityType ] = useState('education')
   const [ activityParticipants, setActivityParticipants ] = useState(null)
+  const [ activityPrice, setActivityPrice ] = useState(0.5)
 
   //function that returns a random activity from the API
   const findRandom = (event) => {
@@ -116,7 +117,11 @@ const App = () => {
     setActivityParticipants(e.target.value)
   }
 
-  //function that returns an activity matching the parameters chosen in the frontend form
+  const handleActivityPriceChange = (e) => {
+    setActivityPrice(e.target.value)
+  }
+
+  //function that returns an activity with the specified type (category)
   const findActivityByType = (event) => {
     event.preventDefault()
     console.log("getting activity..."); //add some frontend notification here
@@ -127,6 +132,7 @@ const App = () => {
      })
   }
 
+  //function that reutns an activity with the specified number of participants
   const findActivityByParticipants = (event) => {
     event.preventDefault()
     if (activityParticipants) { //a value has been selected in the form
@@ -140,6 +146,17 @@ const App = () => {
       console.log("no participant value selected");
       //display notification to select an option in the form
     }
+  }
+
+  //function that returns an activity with the specified price
+  const findActivityByPrice = (event) => {
+    event.preventDefault()
+    console.log("getting activity..."); //add some frontend notification here
+    activityService
+     .getPrice(activityPrice)
+     .then(data => {
+       setActivity(data)
+     })
   }
 
   //function that logs in a user
@@ -224,11 +241,12 @@ const App = () => {
               {/* API uses [0.0 - 1.0] */}
               <fieldset>
                 <label htmlFor="price">Price</label> <br />
-                <input type="range" name="price" min="0" max="10" />
+                <input type="range" name="price" min="0.0" max="1.0" step="0.1" value="0.5" onChange={handleActivityPriceChange} />
               </fieldset>
 
               <button onClick={ findActivityByType }>Show me an activity (by type)</button>
               <button onClick={ findActivityByParticipants }>Show me an activity (by participants)</button>
+              <button onClick={ findActivityByPrice }>Show me an activity (by price)</button>
               <button onClick={ findRandom }>Show me a random activity</button>
             </form>
 

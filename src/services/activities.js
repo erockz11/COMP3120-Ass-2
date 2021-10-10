@@ -6,4 +6,9 @@ const getRandom = () => {
     return request.then(response => response.data)
 }
 
-export default { getRandom }
+const getType = (type) => {
+    const request = axios.get(baseUrl + '?type=' + type)
+    return request.then(response => response.data)
+}
+
+export default { getRandom, getType }

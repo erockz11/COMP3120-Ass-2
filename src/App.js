@@ -94,7 +94,9 @@ const App = () => {
   const [ activity, setActivity ] = useState(getRandom())
 
   const [ user, setUser ] = useState(null)
+  const [ activityType, setActivityType ] = useState('education')
 
+  //function that returns a random activity from the API
   const findRandom = (event) => {
     event.preventDefault()
     console.log("getting activity..."); //add some frontend notification here
@@ -105,9 +107,21 @@ const App = () => {
      })
   }
 
+  const handleActivityTypeChange = (e) => {
+    setActivityType(e.target.value)
+  }
+
+  //function that returns an activity matching the parameters chosen in the frontend form
   const findActivity = (event) => {
     event.preventDefault()
-    console.log("activity form submitted")
+
+    //currently only returns an activity from the selected type
+    console.log("getting activity..."); //add some frontend notification here
+    activityService
+     .getType(activityType)
+     .then(data => {
+       setActivity(data)
+     })
   }
 
   //function that logs in a user
@@ -165,7 +179,7 @@ const App = () => {
             <form>
               <fieldset>
                 <label htmlFor="type">Type</label> <br />
-                <select name="type">
+                <select onChange={handleActivityTypeChange} name="type">
                   <option value="education">Education</option>
                   <option value="recreational">Recreational</option>
                   <option value="social">Social</option>

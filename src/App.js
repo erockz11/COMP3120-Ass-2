@@ -96,7 +96,7 @@ const App = () => {
   const [ user, setUser ] = useState(null)
   const [ activityType, setActivityType ] = useState('education')
   const [ activityParticipants, setActivityParticipants ] = useState(null)
-  const [ activityPrice, setActivityPrice ] = useState(0.5)
+  const [ activityPrice, setActivityPrice ] = useState(1.0)
 
   //function that returns a random activity from the API
   const findRandom = (event) => {
@@ -107,18 +107,6 @@ const App = () => {
      .then(data => {
        setActivity(data)
      })
-  }
-
-  const handleActivityTypeChange = (e) => {
-    setActivityType(e.target.value)
-  }
-
-  const handleActivityParticipantsChange = (e) => {
-    setActivityParticipants(e.target.value)
-  }
-
-  const handleActivityPriceChange = (e) => {
-    setActivityPrice(e.target.value)
   }
 
   //function that returns an activity with the specified type (category)
@@ -149,6 +137,7 @@ const App = () => {
   }
 
   //function that returns an activity with the specified price
+  //note the API currently doesn't have anything with price = 1.0
   const findActivityByPrice = (event) => {
     event.preventDefault()
     console.log("getting activity..."); //add some frontend notification here
@@ -214,7 +203,7 @@ const App = () => {
             <form>
               <fieldset>
                 <label htmlFor="type">Type</label> <br />
-                <select onChange={handleActivityTypeChange} name="type">
+                <select onChange={(e) => setActivityType(e.target.value)} name="type">
                   <option value="education">Education</option>
                   <option value="recreational">Recreational</option>
                   <option value="social">Social</option>
@@ -231,17 +220,17 @@ const App = () => {
               {/* change this implementation? */}
               <fieldset>
                 <label htmlFor="participants">Participants</label> <br />
-                1<input type="radio" name="participants" value="1" onChange={handleActivityParticipantsChange} />
-                2<input type="radio" name="participants" value="2" onChange={handleActivityParticipantsChange} />
-                3<input type="radio" name="participants" value="3" onChange={handleActivityParticipantsChange} />
-                4<input type="radio" name="participants" value="4" onChange={handleActivityParticipantsChange} />
-                5<input type="radio" name="participants" value="5" onChange={handleActivityParticipantsChange} />
+                1<input type="radio" name="participants" value="1" onChange={(e) => setActivityParticipants(e.target.value)} />
+                2<input type="radio" name="participants" value="2" onChange={(e) => setActivityParticipants(e.target.value)} />
+                3<input type="radio" name="participants" value="3" onChange={(e) => setActivityParticipants(e.target.value)} />
+                4<input type="radio" name="participants" value="4" onChange={(e) => setActivityParticipants(e.target.value)} />
+                5<input type="radio" name="participants" value="5" onChange={(e) => setActivityParticipants(e.target.value)} />
               </fieldset>
 
               {/* API uses [0.0 - 1.0] */}
               <fieldset>
                 <label htmlFor="price">Price</label> <br />
-                <input type="range" name="price" min="0.0" max="1.0" step="0.1" value="0.5" onChange={handleActivityPriceChange} />
+                <input type="range" name="price" min="0.0" max="1.0" step="0.1" onChange={(e) => setActivityPrice(e.target.value)} />
               </fieldset>
 
               <button onClick={ findActivityByType }>Show me an activity (by type)</button>

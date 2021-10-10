@@ -95,6 +95,7 @@ const App = () => {
 
   const [ user, setUser ] = useState(null)
   const [ activityType, setActivityType ] = useState('education')
+  const [ activityParticipants, setActivityParticipants ] = useState(null)
 
   //function that returns a random activity from the API
   const findRandom = (event) => {
@@ -111,17 +112,34 @@ const App = () => {
     setActivityType(e.target.value)
   }
 
-  //function that returns an activity matching the parameters chosen in the frontend form
-  const findActivity = (event) => {
-    event.preventDefault()
+  const handleActivityParticipantsChange = (e) => {
+    setActivityParticipants(e.target.value)
+  }
 
-    //currently only returns an activity from the selected type
+  //function that returns an activity matching the parameters chosen in the frontend form
+  const findActivityByType = (event) => {
+    event.preventDefault()
     console.log("getting activity..."); //add some frontend notification here
     activityService
      .getType(activityType)
      .then(data => {
        setActivity(data)
      })
+  }
+
+  const findActivityByParticipants = (event) => {
+    event.preventDefault()
+    if (activityParticipants) { //a value has been selected in the form
+      console.log("getting activity..."); //add some frontend notification here
+      activityService
+      .getParticipants(activityParticipants)
+      .then(data => {
+        setActivity(data)
+     })
+    } else {
+      console.log("no participant value selected");
+      //display notification to select an option in the form
+    }
   }
 
   //function that logs in a user
@@ -196,12 +214,11 @@ const App = () => {
               {/* change this implementation? */}
               <fieldset>
                 <label htmlFor="participants">Participants</label> <br />
-                Any<input type="checkbox" name="participants" value="participants_any" />
-                1<input type="checkbox" name="participants" value="participants_1" />
-                2<input type="checkbox" name="participants" value="participants_2" />
-                3<input type="checkbox" name="participants" value="participants_3" />
-                4<input type="checkbox" name="participants" value="participants_4" />
-                5<input type="checkbox" name="participants" value="participants_5" />
+                1<input type="radio" name="participants" value="1" onChange={handleActivityParticipantsChange} />
+                2<input type="radio" name="participants" value="2" onChange={handleActivityParticipantsChange} />
+                3<input type="radio" name="participants" value="3" onChange={handleActivityParticipantsChange} />
+                4<input type="radio" name="participants" value="4" onChange={handleActivityParticipantsChange} />
+                5<input type="radio" name="participants" value="5" onChange={handleActivityParticipantsChange} />
               </fieldset>
 
               {/* API uses [0.0 - 1.0] */}
@@ -210,7 +227,8 @@ const App = () => {
                 <input type="range" name="price" min="0" max="10" />
               </fieldset>
 
-              <button onClick={ findActivity }>Show me an activity</button>
+              <button onClick={ findActivityByType }>Show me an activity (by type)</button>
+              <button onClick={ findActivityByParticipants }>Show me an activity (by participants)</button>
               <button onClick={ findRandom }>Show me a random activity</button>
             </form>
 

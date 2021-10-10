@@ -11,4 +11,9 @@ const getType = (type) => {
     return request.then(response => response.data)
 }
 
-export default { getRandom, getType }
+const getParticipants = (participants) => {
+    const request = axios.get(baseUrl + '?participants=' + participants)
+    return request.then(response => response.data)
+}
+
+export default { getRandom, getType, getParticipants }

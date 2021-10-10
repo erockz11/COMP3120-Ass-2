@@ -6,6 +6,7 @@ import LoginForm from './components/LoginForm'
 import RegisterForm from './components/RegisterForm'
 import UserDisplay from './components/UserDisplay'
 import MyActivities from './components/MyActivities'
+import activityService from './services/activities'
 
 const App = () => {
 
@@ -96,7 +97,12 @@ const App = () => {
 
   const findRandom = (event) => {
     event.preventDefault()
-    setActivity(getRandom())
+    console.log("getting activity..."); //add some frontend notification here
+    activityService
+     .getRandom()
+     .then(data => {
+       setActivity(data)
+     })
   }
 
   const findActivity = (event) => {

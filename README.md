@@ -74,6 +74,7 @@ A list of functions, location and what they do
 - `App.js`: The main file of the App.
 - `server.js`: Backend express server.
 - `get_activities.rest`: File for sending http requests to test the server api endpoints. Located in the `requests` folder under root.
+- `login_tests.rest`: File for sending http requests to test the login api endpoint. Located in the `requests` folder under root.
 
 # API endpoints
 - `/api/myactivities/:user`: A GET request that returns all of the users saved activities.

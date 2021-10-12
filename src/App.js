@@ -6,92 +6,11 @@ import LoginForm from './components/LoginForm'
 import RegisterForm from './components/RegisterForm'
 import UserDisplay from './components/UserDisplay'
 import MyActivities from './components/MyActivities'
-import activityService from './services/activities'
+import service from './services/services'
 
 const App = () => {
 
-  // load a few activities from https://github.com/drewthoennes/Bored-API/blob/master/db/activities.json for now
-  // just to use for the placeholder UI until we implement requests to the proper API
-  const activities = [
-    {
-      activity: "Learn Express.js",
-      availability: 0.25,
-      type: "education",
-      participants: 1,
-      price: 0.1,
-      accessibility: "Few to no challenges",
-      duration: "hours",
-      kidFriendly: true,
-      link: "https://expressjs.com/",
-      key: "3943506"
-    },
-    {
-      activity: "Bake something you've never tried before",
-      availability: 0.3,
-      type: "cooking",
-      participants: 1,
-      price: 0.4,
-      accessibility: "Minor challenges",
-      duration: "hours",
-      kidFriendly: true,
-      link: "",
-      key: "5665663"
-    },
-    {
-      activity: "Learn how to play a new sport",
-      availability: 0.2,
-      type: "recreational",
-      participants: 1,
-      price: 0.1,
-      accessibility: "Minor challenges",
-      duration: "minutes",
-      kidFriendly: true,
-      link: "",
-      key: "5808228"
-    },
-    {
-      activity: "Text a friend you haven't talked to in a long time",
-      availability: 0.2,
-      type: "social",
-      participants: 2,
-      price: 0.05,
-      accessibility: "Few to no challenges",
-      duration: "minutes",
-      kidFriendly: true,
-      link: "",
-      key: "6081071"
-    },
-    {
-      activity: "Meditate for five minutes",
-      availability: 0.05,
-      type: "relaxation",
-      participants: 1,
-      price: 0,
-      accessibility: "Few to no challenges",
-      duration: "minutes",
-      kidFriendly: true,
-      link: "",
-      key: "3699502"
-    },
-    {
-      activity: "Learn to play a new instrument",
-      availability: 0.6,
-      type: "music",
-      participants: 1,
-      price: 0.55,
-      accessibility: "Major challenges",
-      duration: "hours",
-      kidFriendly: true,
-      link: "",
-      key: "3192099"
-    }
-  ]
-
-  const getRandom = () => {
-    return activities[Math.floor(Math.random() * activities.length)]
-  }
-
-  const [ activity, setActivity ] = useState(getRandom())
+  const [ activity, setActivity ] = useState(null)
 
   const [ user, setUser ] = useState({
     "username": "",
@@ -110,22 +29,22 @@ const App = () => {
   const findRandom = (event) => {
     event.preventDefault()
     console.log("getting activity..."); //add some frontend notification here
-    activityService
-     .getRandom()
-     .then(data => {
-       setActivity(data)
-     })
+
+    service.getRandom()
+      .then(data => {
+        setActivity(data)
+      })
   }
 
   //function that returns an activity with the specified type (category)
   const findActivityByType = (event) => {
     event.preventDefault()
     console.log("getting activity..."); //add some frontend notification here
-    activityService
-     .getType(activityType)
-     .then(data => {
-       setActivity(data)
-     })
+
+    service.getType(activityType)
+      .then(data => {
+        setActivity(data)
+      })
   }
 
   //function that reutns an activity with the specified number of participants
@@ -133,11 +52,11 @@ const App = () => {
     event.preventDefault()
     if (activityParticipants) { //a value has been selected in the form
       console.log("getting activity..."); //add some frontend notification here
-      activityService
-      .getParticipants(activityParticipants)
-      .then(data => {
-        setActivity(data)
-     })
+
+      service.getParticipants(activityParticipants)
+        .then(data => {
+          setActivity(data)
+        })
     } else {
       console.log("no participant value selected");
       //display notification to select an option in the form
@@ -145,23 +64,33 @@ const App = () => {
     }
   }
 
-  //function that returns an activity with the specified price
+  //function that returns an activity within the specified price range
   //note the API currently doesn't have anything with price = 1.0
   const findActivityByPrice = (event) => {
     event.preventDefault()
     console.log("getting activity..."); //add some frontend notification here
-    activityService
-     .getPrice(activityPrice)
-     .then(data => {
-       setActivity(data)
-     })
+
+    service.getPrice(activityPrice)
+      .then(data => {
+        setActivity(data)
+      })
   }
 
   //function that logs in a user
   const userLogin = (event) => {
     event.preventDefault()
     console.log("logging in user")
-    setLoggedIn(true)
+
+    service.login(user)
+    .then(data => {
+      console.log("success:", data)
+      setLoggedIn(true)
+      setUser(data)
+    })
+    .catch(error => {
+      console.log("error: ", error)
+      alert("Wrong username or password.")
+    })
   }
 
   //function that logs out a user

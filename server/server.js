@@ -4,9 +4,13 @@ const { act } = require('react-dom/test-utils')
 const app = express()
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
+require('dotenv').config()
 
 app.use(express.json())
 app.use(cors())
+
+const PORT = process.env.PORT || 3001;
+const SECRET = process.env.JWT_SECRET
 
 //sample activities
 let activities = [
@@ -139,14 +143,14 @@ app.post('/api/login', async (request, response) => {
     if(await bcrypt.compare(password, user.password)) {
         console.log("password is good")
   
-    //   const userForToken = {
-    //     id: user.id,
-    //     username: user.username
-    //   }
-    //   const token = jwt.sign(userForToken, SECRET)
+      const userForToken = {
+        id: user.id,
+        username: user.username
+      }
+      const token = jwt.sign(userForToken, SECRET)
   
-        // return response.status(200).json({token, username: user.username, name: user.name})
-        return response.status(200).json({username: user.username, name: user.name})
+        return response.status(200).json({token, username: user.username, name: user.name})
+        // return response.status(200).json({username: user.username, name: user.name})
     } else {
         return response.status(401).json({error: "invalid username or password"})
     }
@@ -160,7 +164,6 @@ const generateId = () => {
     return maxId + 1
 }
 
-const PORT = 3001
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
 })

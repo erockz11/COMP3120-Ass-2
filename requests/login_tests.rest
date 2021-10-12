@@ -1,0 +1,30 @@
+//bad password
+POST http://localhost:3001/api/login
+Content-Type: application/json
+
+{
+    "username": "test1",
+    "password": "a"
+}
+
+###
+
+//bad user
+POST http://localhost:3001/api/login
+Content-Type: application/json
+
+{
+    "username": "scott",
+    "password": "0000"
+}
+
+###
+
+//good
+POST http://localhost:3001/api/login
+Content-Type: application/json
+
+{
+    "username": "test1",
+    "password": "0000"
+}

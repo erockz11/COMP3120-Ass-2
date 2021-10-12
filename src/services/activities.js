@@ -21,10 +21,4 @@ const getPrice = (price) => {
     return request.then(response => response.data)
 }
 
-const login = ({username, password}) => {
-
-    return axios.post('http://localhost:3001/api/login', {username, password})
-                .then(response => response.data)
-}
-
-export default { getRandom, getType, getParticipants, getPrice, login }
+export default { getRandom, getType, getParticipants, getPrice }

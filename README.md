@@ -23,24 +23,11 @@ You will also see any lint errors in the console.
 
 ### `npm run dev`
 
-Runs the server in development mode using nodemon, allowing for refreshes of the server each time a change is made while running
+Runs the server in development mode using nodemon
+Allowing for refreshes of the server each time a change is made while running
 # Application Outline
 
-### Main Purpose
-
-To provide users with a way to generate an activity based on certain parameters (activity type, participants, price, etc).
-
-### Target Demographic
-
-Bored people.
-
-### How is it Used?
-
-There will be a form with drop down tables that users can use to specify the parameters of which a randomly generated activity will adhere to. If users like the activity, they can then save it to their profile. Users can then remove an activity or mark an activity as complete on their profile. Completed activities generate points and users with the most points are displayed in descending order.
-
-### Data sources
-
-`https://www.boredapi.com/`
+(An outline of the application you were aiming to build, target users, data sources etc (similar to the proposal))
 
 # Included in this MVP
 
@@ -55,9 +42,9 @@ There will be a form with drop down tables that users can use to specify the par
 All components are located in the `components` folder.
 
 - `Activity.js`: Displays information for a single activity, passed as props.
-- `Leaderboard.js`: Component that displays score rankings of users.
+- `Leaderboard.js`:
 - `LoginForm.js`: Form for users to login to their accounts.
-- `MyActivities.js`: Component that displays a user's current activities.
+- `MyActivities.js`:
 - `RegisterForm.js`: Form for users to create an account if they do not already have one.
 - `UserDisplay.js`: When a user logs in successfully, their username is displayed by this component.
 
@@ -71,15 +58,13 @@ A list of functions, location and what they do
 
 ## Other Files
 
-- `App.js`: The main file of the App.
+- `App.js`:
 - `server.js`: Backend express server.
 - `get_activities.rest`: File for sending http requests to test the server api endpoints. Located in the `requests` folder under root.
-- `login_tests.rest`: File for sending http requests to test the login api endpoint. Located in the `requests` folder under root.
 
 # API endpoints
-- `/api/myactivities/:user`: A GET request that returns all of the users saved activities.
-- `/api/addactivity/:user`: A POST request that adds an activity that the users wants to save to their activities list.
-- `/api/login`: A POST request that handles the login function of this application.
+- `/api/myactivities/:user`: A GET request that returns all of the users saved activities
+- `/api/addactivity/:user`: A POST request that adds an activity that the users wants to save to their activities list
 
 # Next Steps
 

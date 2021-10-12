@@ -13,4 +13,4 @@ GET http://localhost:3001/api/myactivities/test3
 POST http://localhost:3001/api/addactivity/test2
 Content-Type: application/json
 
-{ "activity": "Learn to ride a horse", "accessibility": 0.9, "type": "social", "participants": 1, "price": 1.0}
+{ "activity": "play monopoly", "accessibility": 0.2, "type": "social", "participants": 4, "price": 0.3}

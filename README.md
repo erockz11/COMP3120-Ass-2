@@ -76,8 +76,9 @@ A list of functions, location and what they do
 - `get_activities.rest`: File for sending http requests to test the server api endpoints. Located in the `requests` folder under root.
 
 # API endpoints
-- `/api/myactivities/:user`: A GET request that returns all of the users saved activities
-- `/api/addactivity/:user`: A POST request that adds an activity that the users wants to save to their activities list
+- `/api/myactivities/:user`: A GET request that returns all of the users saved activities.
+- `/api/addactivity/:user`: A POST request that adds an activity that the users wants to save to their activities list.
+- `/api/login`: A POST request that handles the login function of this application.
 
 # Next Steps
 

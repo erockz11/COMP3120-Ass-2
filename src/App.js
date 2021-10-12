@@ -116,7 +116,7 @@ const App = () => {
         </Route>
 
         <Route path="/my">
-          <MyActivities/>
+          <MyActivities userLogin={loggedIn}/>
         </Route>
 
         <Route path="/login">

@@ -93,7 +93,11 @@ const App = () => {
 
   const [ activity, setActivity ] = useState(getRandom())
 
-  const [ user, setUser ] = useState(null)
+  const [ user, setUser ] = useState({
+    "username": "",
+    "password": ""
+  })
+  const [ loggedIn, setLoggedIn ] = useState(false)
   const [ activityType, setActivityType ] = useState('education')
   const [ activityParticipants, setActivityParticipants ] = useState(null)
   const [ activityPrice, setActivityPrice ] = useState(1.0)
@@ -153,13 +157,13 @@ const App = () => {
   const userLogin = (event) => {
     event.preventDefault()
     console.log("logging in user")
-    setUser("Test User")
+    setLoggedIn(true)
   }
 
   //function that logs out a user
   const userLogout = () => {
     console.log("logging out")
-    setUser(null)
+    setLoggedIn(false)
   }
 
   //function that registers a new user
@@ -178,7 +182,7 @@ const App = () => {
       </div>
 
       <div>
-        <UserDisplay user={user} logoutFn={userLogout} />
+        <UserDisplay user={user} loggedIn={loggedIn} logoutFn={userLogout}  />
       </div>
 
       <Switch>
@@ -192,7 +196,7 @@ const App = () => {
         </Route>
 
         <Route path="/login">
-          <LoginForm loginFn={userLogin} />
+          <LoginForm loginFn={userLogin} setUserFn={setUser} user={user} />
           <RegisterForm registerFn={userRegister} />
         </Route>
 

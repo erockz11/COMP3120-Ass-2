@@ -98,12 +98,12 @@ app.post('/api/addactivity/:username', (request,response) => {
     const newActivity = request.body
 
     const activity = {
-        "activity": activity.activity,
-        "accessibility": activity.accessibility,
-        "type": activity.type,
-        "participants": activity.participants,
-        "price": activity.price,
-        "username": activity.username,
+        "activity": newActivity.activity,
+        "accessibility": newActivity.accessibility,
+        "type": newActivity.type,
+        "participants": newActivity.participants,
+        "price": newActivity.price,
+        "username": user,
         "id": generateId()
     }
 
@@ -118,8 +118,8 @@ app.post('/api/addactivity/:username', (request,response) => {
 })
 
 const generateId = () => {
-    const maxId = poems.length > 0 
-        ? Math.max(...poems.map(u => u.id)) 
+    const maxId = activities.length > 0 
+        ? Math.max(...activities.map(u => u.id)) 
         : 0
 
     return maxId + 1

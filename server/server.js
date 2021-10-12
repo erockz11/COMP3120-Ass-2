@@ -1,9 +1,9 @@
 const express = require('express')
 const cors = require('cors')
 const { act } = require('react-dom/test-utils')
-const app = express()
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
+const app = express()
 require('dotenv').config()
 
 app.use(express.json())

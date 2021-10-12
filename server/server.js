@@ -1,6 +1,8 @@
 const express = require('express')
 const cors = require('cors')
 const { act } = require('react-dom/test-utils')
+const Activity = require("./models/activities")
+const User = require("./models/users")
 const app = express()
 
 app.use(express.json())
@@ -95,9 +97,9 @@ app.post('/api/addactivity/:username', (request,response) => {
     console.log(user)
     const isUser = users.find(name => name.username === user)
     console.log(isUser)
-    const newActivity = request.body
+    const sentActivity = request.body
 
-    const activity = {
+    /*const activity = {
         "activity": newActivity.activity,
         "accessibility": newActivity.accessibility,
         "type": newActivity.type,
@@ -105,12 +107,29 @@ app.post('/api/addactivity/:username', (request,response) => {
         "price": newActivity.price,
         "username": user,
         "id": generateId()
-    }
+    }*/
+
+    const newActivity = new Activity({
+        "activity": sentActivity.activity,
+        "accessibility": sentActivity.accessibility,
+        "type": sentActivity.type,
+        "participants": sentActivity.participants,
+        "price": sentActivity.price,
+        "username": user,
+    })
+
+    console.log(newActivity.activity)
+
+    newActivity.save().then(result => {
+        console.log("record saved")
+        response.send(result);
+    })
 
     if(isUser){
-        activities = activities.concat(activity)
-        let userActivities = activities.filter(name => name.username === user)
-        response.send(userActivities)
+        //activities = activities.concat(activity)
+        //let userActivities = activities.filter(name => name.username === user)
+        //response.send(userActivities)
+        
     } else {
         response.status(401).end("Unauthroized response")
     }

@@ -1,3 +1,5 @@
+//Run by typing "node utils/pwcrypt.js" in terminal
+
 const bcrypt = require('bcrypt')
 
 const data = [

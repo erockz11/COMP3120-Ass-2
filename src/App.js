@@ -6,7 +6,7 @@ import LoginForm from './components/LoginForm'
 import RegisterForm from './components/RegisterForm'
 import UserDisplay from './components/UserDisplay'
 import MyActivities from './components/MyActivities'
-import activityService from './services/activities'
+import service from './services/services'
 
 const App = () => {
 
@@ -29,7 +29,7 @@ const App = () => {
   const findRandom = (event) => {
     event.preventDefault()
     console.log("getting activity..."); //add some frontend notification here
-    activityService
+    service
      .getRandom()
      .then(data => {
        setActivity(data)
@@ -40,7 +40,7 @@ const App = () => {
   const findActivityByType = (event) => {
     event.preventDefault()
     console.log("getting activity..."); //add some frontend notification here
-    activityService
+    service
      .getType(activityType)
      .then(data => {
        setActivity(data)
@@ -52,7 +52,7 @@ const App = () => {
     event.preventDefault()
     if (activityParticipants) { //a value has been selected in the form
       console.log("getting activity..."); //add some frontend notification here
-      activityService
+      service
       .getParticipants(activityParticipants)
       .then(data => {
         setActivity(data)
@@ -69,7 +69,7 @@ const App = () => {
   const findActivityByPrice = (event) => {
     event.preventDefault()
     console.log("getting activity..."); //add some frontend notification here
-    activityService
+    service
      .getPrice(activityPrice)
      .then(data => {
        setActivity(data)

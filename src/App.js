@@ -64,7 +64,7 @@ const App = () => {
     }
   }
 
-  //function that returns an activity with the specified price
+  //function that returns an activity within the specified price range
   //note the API currently doesn't have anything with price = 1.0
   const findActivityByPrice = (event) => {
     event.preventDefault()

@@ -97,6 +97,10 @@ const App = () => {
     "username": "",
     "password": ""
   })
+  const [ newUser, setNewUser ] = useState({
+    "username": "",
+    "password": ""
+  })
   const [ loggedIn, setLoggedIn ] = useState(false)
   const [ activityType, setActivityType ] = useState('education')
   const [ activityParticipants, setActivityParticipants ] = useState(null)
@@ -170,6 +174,7 @@ const App = () => {
   const userRegister = (event) => {
     event.preventDefault()
     console.log("Registering a new user")
+    console.log(newUser)
   }
 
   return (
@@ -197,7 +202,7 @@ const App = () => {
 
         <Route path="/login">
           <LoginForm loginFn={userLogin} setUserFn={setUser} user={user} />
-          <RegisterForm registerFn={userRegister} />
+          <RegisterForm registerFn={userRegister} newUser={newUser} setNewUser={setNewUser} />
         </Route>
 
         <Route path="/">

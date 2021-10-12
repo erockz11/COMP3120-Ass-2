@@ -133,6 +133,7 @@ const App = () => {
     } else {
       console.log("no participant value selected");
       //display notification to select an option in the form
+      alert("Please select number of participants.")
     }
   }
 
@@ -229,7 +230,7 @@ const App = () => {
 
               {/* API uses [0.0 - 1.0] */}
               <fieldset>
-                <label htmlFor="price">Price</label> <br />
+                <label htmlFor="price">Price Range</label> <br />
                 <input type="range" name="price" min="0.0" max="1.0" step="0.1" onChange={(e) => setActivityPrice(e.target.value)} />
               </fieldset>
 

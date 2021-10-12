@@ -17,7 +17,7 @@ const getParticipants = (participants) => {
 }
 
 const getPrice = (price) => {
-    const request = axios.get(baseUrl + '?price=' + price)
+    const request = axios.get(baseUrl + '?minprice=0&maxprice=' + price)
     return request.then(response => response.data)
 }
 

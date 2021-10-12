@@ -21,8 +21,10 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
+### `npm run dev`
 
-
+Runs the server in development mode using nodemon
+Allowing for refreshes of the server each time a change is made while running
 # Application Outline
 
 (An outline of the application you were aiming to build, target users, data sources etc (similar to the proposal))
@@ -39,16 +41,30 @@ You will also see any lint errors in the console.
 
 All components are located in the `components` folder.
 
-- `Activity.js`: Displays information for a single activity, passed as props
+- `Activity.js`: Displays information for a single activity, passed as props.
 - `Leaderboard.js`:
-- `LoginForm.js`:
+- `LoginForm.js`: Form for users to login to their accounts.
 - `MyActivities.js`:
-- `RegisterForm.js`:
-- `UserDisplay.js`:
+- `RegisterForm.js`: Form for users to create an account if they do not already have one.
+- `UserDisplay.js`: When a user logs in successfully, their username is displayed by this component.
+
+## Functions
+
+A list of functions, location and what they do 
+
+- `userLogin()`: function that logins in a user, located in `App.js`
+- `userLogout()`: function that logs out a user, located in `App.js`
+- `userRegister()`: function that registers a new user, located in `App.js`
 
 ## Other Files
 
 - `App.js`:
+- `server.js`: Backend express server.
+- `get_activities.rest`: File for sending http requests to test the server api endpoints. Located in the `requests` folder under root.
+
+# API endpoints
+- `/api/myactivities/:user`: A GET request that returns all of the users saved activities
+- `/api/addactivity/:user`: A POST request that adds an activity that the users wants to save to their activities list
 
 # Next Steps
 

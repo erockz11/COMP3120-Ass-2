@@ -6,10 +6,9 @@ Write your name next to the item to claim it
 # Week 10 todo
 Bored api integration: Josh\
 Express Server: Jaime\
-User Auth: Scott\
-Integration of frontend to backend: Scott/Jaime\
-Database: Jaime\
-Styling: Sahana
+User Auth: unclaimed\
+Integration of frontend to backend: unclaimed\
+Database: unclaimed\
 
 # Week 11 todo
 TBD

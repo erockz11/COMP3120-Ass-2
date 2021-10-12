@@ -4,15 +4,9 @@ const { act } = require('react-dom/test-utils')
 const Activity = require("./models/activities")
 const User = require("./models/users")
 const app = express()
-const bcrypt = require("bcrypt")
-const jwt = require("jsonwebtoken")
-require('dotenv').config()
 
 app.use(express.json())
 app.use(cors())
-
-const PORT = process.env.PORT || 3001;
-const SECRET = process.env.JWT_SECRET
 
 //sample activities
 let activities = [
@@ -71,14 +65,15 @@ let activities = [
         "id": 5
     }
 ]
+
 let users = [
     {
         "username": "test1",
-        "password": "$2b$10$mji4xtNjSBdqtt85NvSzA.J8OCK/hqqKZx8g9xbZ2dYMBEaLLwxrq"
+        "password": "0000"
     },
     {
         "username": "test2",
-        "password": "$2b$10$k/wbLjWpl1ykcUF.PYsuPe1wmv73haeN9Y0YhNJ3JabIUDXNAGGgu"
+        "password": "0001"
     }
 ]
 
@@ -97,7 +92,6 @@ app.get('/api/myactivities/:username', (request,response) => {
     }
 })
 
-//api endpoint to add an activity to a user's account
 app.post('/api/addactivity/:username', (request,response) => {
     const user = request.params.username
     console.log(user)
@@ -142,39 +136,6 @@ app.post('/api/addactivity/:username', (request,response) => {
     
 })
 
-//filters out specified user
-const getUser = (username) => {
-    return users.filter(u => u.username === username)[0]
-}
-
-//api endpoint to handle login with {username, password}
-app.post('/api/login', async (request, response) => {
-
-    const {username, password} = request.body
-
-    const user = getUser(username)
-    console.log(user)
-
-    if(!user) {
-        return response.status(401).json({error: "invalid username or password"})
-    }
-  
-    if(await bcrypt.compare(password, user.password)) {
-        console.log("password is good")
-  
-      const userForToken = {
-        id: user.id,
-        username: user.username
-      }
-      const token = jwt.sign(userForToken, SECRET)
-  
-        return response.status(200).json({token, username: user.username, name: user.name})
-        // return response.status(200).json({username: user.username, name: user.name})
-    } else {
-        return response.status(401).json({error: "invalid username or password"})
-    }
-})
-
 const generateId = () => {
     const maxId = activities.length > 0 
         ? Math.max(...activities.map(u => u.id)) 
@@ -183,6 +144,7 @@ const generateId = () => {
     return maxId + 1
 }
 
+const PORT = 3001
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
 })

@@ -9,7 +9,6 @@ h1 {
   margin-top: 10px;
 }
 
-<<<<<<< Updated upstream
 /* global styling for all variants of the Notification component */
 [class^="notification-"] {
   position: fixed;
@@ -36,5 +35,3 @@ h1 {
   background-color: darkgoldenrod;
   color: #000;
 }
-=======
->>>>>>> Stashed changes

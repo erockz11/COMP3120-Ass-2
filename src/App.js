@@ -135,7 +135,6 @@ const App = () => {
   }
 
   return (
-<<<<<<< Updated upstream
     <div>
       <Router>
         <div>
@@ -218,86 +217,6 @@ const App = () => {
 
       <Notification message={notificationMessage} type={notificationType} />
     </div>
-=======
-    <Router>
-      <div>
-        <Link to="/" style={{ textDecoration: 'none', padding: '10px' }}> Home</Link>
-        <Link to="/leaderboard" style={{ textDecoration: 'none', padding: '10px' }}>Leaderboard</Link>
-        <Link to="/my" style={{ textDecoration: 'none', padding: '10px' }}>My Activities</Link>
-        <Link to="/login" style={{ textDecoration: 'none', padding: '10px' }}>Log In/Register</Link>
-      </div>
-
-      <div>
-        <UserDisplay user={user} loggedIn={loggedIn} logoutFn={userLogout}  />
-      </div>
-
-      <Switch>
-    
-        <Route path="/leaderboard">
-          <Leaderboard/>
-        </Route>
-
-        <Route path="/my">
-          <MyActivities userLogin={loggedIn}/>
-        </Route>
-
-        <Route path="/login">
-          <LoginForm loginFn={userLogin} setUserFn={setUser} user={user} />
-          <RegisterForm registerFn={userRegister} newUser={newUser} setNewUser={setNewUser} />
-        </Route>
-
-        <Route path="/">
-          <div>
-            <h1>Bored?</h1>
-            <h2>Find something to do:</h2>
-
-            <form>
-              <fieldset>
-                <label htmlFor="type">Type</label> <br />
-                <select onChange={(e) => setActivityType(e.target.value)} name="type">
-                  <option value="education">Education</option>
-                  <option value="recreational">Recreational</option>
-                  <option value="social">Social</option>
-                  <option value="DIY">DIY</option>
-                  <option value="charity">Charity</option>
-                  <option value="cooking">Cooking</option>
-                  <option value="relaxation">Relaxation</option>
-                  <option value="music">Music</option>
-                  <option value="busywork">Busywork</option>
-                </select>
-              </fieldset>
-
-              {/* activities.json from API currently doesn't have any activities with more than 5 participants */}
-              {/* change this implementation? */}
-              <fieldset>
-                <label htmlFor="participants">Participants</label> <br />
-                1<input type="radio" name="participants" value="1" onChange={(e) => setActivityParticipants(e.target.value)} />
-                2<input type="radio" name="participants" value="2" onChange={(e) => setActivityParticipants(e.target.value)} />
-                3<input type="radio" name="participants" value="3" onChange={(e) => setActivityParticipants(e.target.value)} />
-                4<input type="radio" name="participants" value="4" onChange={(e) => setActivityParticipants(e.target.value)} />
-                5<input type="radio" name="participants" value="5" onChange={(e) => setActivityParticipants(e.target.value)} />
-              </fieldset>
-
-              {/* API uses [0.0 - 1.0] */}
-              <fieldset>
-                <label htmlFor="price">Price Range</label> <br />
-                <input type="range" name="price" min="0.0" max="1.0" step="0.1" onChange={(e) => setActivityPrice(e.target.value)} />
-              </fieldset>
-
-              <button onClick={ findActivityByType }>Show me an activity (by type)</button>
-              <button onClick={ findActivityByParticipants }>Show me an activity (by participants)</button>
-              <button onClick={ findActivityByPrice }>Show me an activity (by price)</button>
-              <button onClick={ findRandom }>Show me a random activity</button>
-            </form>
-
-            <h2>You should try:</h2>
-            <Activity activity={ activity } />
-          </div>
-        </Route>
-
-      </Switch>
-    </Router>
->>>>>>> Stashed changes
   )
 }
 

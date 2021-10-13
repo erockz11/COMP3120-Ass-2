@@ -15,90 +15,17 @@ app.use(cors())
 const PORT = process.env.PORT || 3001;
 const SECRET = process.env.JWT_SECRET
 
-async function encryptPassword(user){
-    let pwcrypt;
-    return pwcrypt = await bcrypt.hash(user.password, 10).then(result => {
-        console.log(result, result)
-        return result
-    })
-}
-
-//sample activities
-let activities = [
-    {
-        "activity": "Learn Express.js",
-        "accessibility": 0.1,
-        "type": "social",
-        "participants": 1,
-        "price": 0.0,
-        "username": "test1",
-        "id": 0
-    },
-    {
-        "activity": "Bake something you've never tried before",
-        "accessibility": 0.1,
-        "type": "social",
-        "participants": 1,
-        "price": 0.0,
-        "username": "test1",
-        "id": 1
-    },
-    {
-        "activity": "Learn how to play a new sport",
-        "accessibility": 0.1,
-        "type": "social",
-        "participants": 1,
-        "price": 0.0,
-        "username": "test1",
-        "id": 2
-    },
-    {
-        "activity": "Text a friend you haven't talked to in a long time",
-        "accessibility": 0.1,
-        "type": "social",
-        "participants": 1,
-        "price": 0.0,
-        "username": "test1",
-        "id": 3
-    },
-    {
-        "activity": "Meditate for five minutes",
-        "accessibility": 0.1,
-        "type": "social",
-        "participants": 1,
-        "price": 0.0,
-        "username": "test1",
-        "id": 4
-    },
-    {
-        "activity": "Learn to play a new instrument",
-        "accessibility": 0.1,
-        "type": "social",
-        "participants": 1,
-        "price": 0.0,
-        "username": "test2",
-        "id": 5
-    }
-]
-let users = [
-    {
-        "username": "test1",
-        "password": "$2b$10$mji4xtNjSBdqtt85NvSzA.J8OCK/hqqKZx8g9xbZ2dYMBEaLLwxrq"
-    },
-    {
-        "username": "test2",
-        "password": "$2b$10$k/wbLjWpl1ykcUF.PYsuPe1wmv73haeN9Y0YhNJ3JabIUDXNAGGgu"
-    }
-]
 
 //api endpoint to return all activities for a user
-app.get('/api/myactivities/:username', (request,response) => {
+app.get('/api/myactivities/:username', async (request,response) => {
     const user = request.params.username
     console.log(user)
-    const isUser = users.find(name => name.username === user)
+    let isUser = await getUser(user).catch(error => {
+        console.log(error)
+    })
     console.log(isUser)
     if(isUser) {
-        let userActivities = activities.filter(name => name.username === user)
+        let userActivities = await Activity.find({"username": isUser.username})
         console.log(userActivities)
         response.json(userActivities)
     } else {
@@ -111,25 +38,18 @@ app.post('/api/register', async (request,response) => {
     const newUser = request.body
 
     //check username is free
-    async function checkUser() {
-        let checkIfUser = await User.findOne({"username": newUser.username}).then(result => {
-            console.log(result)
-            console.log()
-            return result
-        })
-        return checkIfUser
-    }
-
-    let checkIfUser = await checkUser().catch(error => {
+    let checkIfUser = await getUser(newUser.username).catch(error => {
         console.log(error)
     })
 
     console.log("checking if the user name is already present",checkIfUser)
 
     if(!checkIfUser) {
+        //hash the password
         const hashedPassword = await Pwcrypt.encryptPassword(newUser)
         console.log(hashedPassword)
 
+        //create a new User record to save to db
         const regUser = new User({
             "username": newUser.username,
             "password": hashedPassword,
@@ -138,6 +58,7 @@ app.post('/api/register', async (request,response) => {
         
         console.log("this is my password?")
         console.log(regUser.password)
+        //save record to db
         regUser.save().then(result => {
             console.log("user saved")
             response.send(result)
@@ -145,20 +66,23 @@ app.post('/api/register', async (request,response) => {
     } else {
         response.status(401).end("Username already exists")
     }
-
-    
 })
 
 //api endpoint to add an activity to a user's account
-app.post('/api/addactivity/:username', (request,response) => {
+app.post('/api/addactivity/:username', async (request,response) => {
+    //get the username from the url
     const user = request.params.username
     console.log(user)
-    const isUser = users.find(name => name.username === user)
+    //check if the user exists
+    const isUser = await getUser(user).catch(error => {
+        console.log(error)
+    })
     console.log(isUser)
+    //get the activity from the request body
     const sentActivity = request.body
 
     if(isUser){
-
+        //create a new activity record
         const newActivity = new Activity({
             "activity": sentActivity.activity,
             "accessibility": sentActivity.accessibility,
@@ -169,7 +93,7 @@ app.post('/api/addactivity/:username', (request,response) => {
         })
     
         console.log(newActivity.activity)
-    
+        //save record to the db
         newActivity.save().then(result => {
             console.log("record saved")
             response.send(result);
@@ -181,7 +105,7 @@ app.post('/api/addactivity/:username', (request,response) => {
     
 })
 
-//filters out specified user
+//returns a User record from the db, null if not found
 async function getUser(user) {
     let checkIfUser = await User.findOne({"username": user}).then(result => {
         console.log(result)
@@ -200,9 +124,6 @@ app.post('/api/login', async (request, response) => {
     let user = await getUser(username).catch(error => {
         console.log(error)
     })
-
-    //const user = await getUser(username)
-    //console.log(user)
     console.log(user)
 
     if(!user) {
@@ -224,14 +145,6 @@ app.post('/api/login', async (request, response) => {
         return response.status(401).json({error: "invalid username or password"})
     }
 })
-
-const generateId = () => {
-    const maxId = activities.length > 0 
-        ? Math.max(...activities.map(u => u.id)) 
-        : 0
-
-    return maxId + 1
-}
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)

@@ -112,7 +112,7 @@ app.post('/api/register', async (request,response) => {
 
     //check username is free
     async function checkUser() {
-        let checkIfUser = await User.findOne({"uname": newUser.username}).then(result => {
+        let checkIfUser = await User.findOne({"username": newUser.username}).then(result => {
             console.log(result)
             console.log()
             return result
@@ -120,17 +120,18 @@ app.post('/api/register', async (request,response) => {
         return checkIfUser
     }
 
-    let checkIfUser = checkUser().catch(error => {
+    let checkIfUser = await checkUser().catch(error => {
         console.log(error)
     })
 
-    if(checkIfUser) {
+    console.log("checking if the user name is already present",checkIfUser)
+
+    if(!checkIfUser) {
         const hashedPassword = await Pwcrypt.encryptPassword(newUser)
-        //const hashedPassword = await encryptPassword(newUser)
         console.log(hashedPassword)
 
         const regUser = new User({
-            "uname": newUser.username,
+            "username": newUser.username,
             "password": hashedPassword,
             "score": newUser.score
         })

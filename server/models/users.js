@@ -14,7 +14,7 @@ const doConnect = async (url) => {
 doConnect(url)
 
 const userSchema = new mongoose.Schema({
-    uname: String,
+    username: String,
     password: String,
     score: Number
 })

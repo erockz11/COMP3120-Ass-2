@@ -32,4 +32,9 @@ const addActivity = (activity, user) => {
                 .then(response => response.data)
 }
 
-export default { getRandom, getType, getParticipants, getPrice, login, addActivity }
+const getActivities = ({username}) => {
+    return axios.get(`http://localhost:3001/api/myactivities/${username}`)
+                .then(response => response.data)
+}
+
+export default { getRandom, getType, getParticipants, getPrice, login, addActivity, getActivities }

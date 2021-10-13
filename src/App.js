@@ -24,6 +24,7 @@ const App = () => {
   const [ activityType, setActivityType ] = useState('education')
   const [ activityParticipants, setActivityParticipants ] = useState(null)
   const [ activityPrice, setActivityPrice ] = useState(1.0)
+  const [ userActivities, setUserActivities ] = useState(null)
 
   //function that returns a random activity from the API
   const findRandom = (event) => {
@@ -91,13 +92,22 @@ const App = () => {
       console.log("error: ", error)
       alert("Wrong username or password.")
     })
+
+    //once the user has logged in, get their saved activities
+    service.getActivities(user)
+    .then(data => {
+      setUserActivities(data)
+    })
   }
 
   //function that logs out a user
   const userLogout = () => {
     console.log("logging out")
     setLoggedIn(false)
-    setUser(null)
+    setUser({
+      "username": "",
+      "password": ""
+    })
   }
 
   //function that registers a new user
@@ -127,7 +137,7 @@ const App = () => {
         </Route>
 
         <Route path="/my">
-          <MyActivities userLogin={loggedIn}/>
+          <MyActivities userLogin={loggedIn} userActivities={userActivities}/>
         </Route>
 
         <Route path="/login">

@@ -7,7 +7,7 @@ Write your name next to the item to claim it
 Bored api integration: Josh\
 Express Server: Jaime\
 User Auth: Scott\
-Integration of frontend to backend: Scott/Jaime\
+Integration of frontend to backend: Scott/Jaime/Josh\
 Database: Jaime\
 Styling: Sahana
 

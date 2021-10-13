@@ -22,6 +22,7 @@ const activitySchema = new mongoose.Schema({
     username: String
 })
 
+
 activitySchema.set('toJSON', {
     transform: (document, returnedObject) => {
         returnedObject.id = returnedObject._id.toString()

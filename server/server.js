@@ -37,35 +37,28 @@ app.get('/api/myactivities/:username', async (request,response) => {
 app.post('/api/register', async (request,response) => {
     const newUser = request.body
 
-    //check username is free
-    let checkIfUser = await getUser(newUser.username).catch(error => {
-        console.log(error)
+    //hash the password
+    const hashedPassword = await Pwcrypt.encryptPassword(newUser)
+    console.log(hashedPassword)
+
+    //create a new User record to save to db
+    const regUser = new User({
+        "username": newUser.username,
+        "password": hashedPassword,
+        "score": newUser.score
     })
-
-    console.log("checking if the user name is already present",checkIfUser)
-
-    if(!checkIfUser) {
-        //hash the password
-        const hashedPassword = await Pwcrypt.encryptPassword(newUser)
-        console.log(hashedPassword)
-
-        //create a new User record to save to db
-        const regUser = new User({
-            "username": newUser.username,
-            "password": hashedPassword,
-            "score": newUser.score
-        })
-        
-        console.log("this is my password?")
-        console.log(regUser.password)
-        //save record to db
-        regUser.save().then(result => {
-            console.log("user saved")
-            response.send(result)
-        })
-    } else {
-        response.status(401).end("Username already exists")
-    }
+    
+    console.log("this is my password?")
+    console.log(regUser.password)
+    //save record to db, error if not username taken
+    await regUser.save()
+    .then(result => {
+        console.log("user saved")
+        response.send(result)
+    }).catch(error => {
+        console.log(error)
+        response.status(401).end("That Username already exists")
+    })
 })
 
 //api endpoint to add an activity to a user's account

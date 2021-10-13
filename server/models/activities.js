@@ -14,6 +14,7 @@ const doConnect = async (url) => {
 doConnect(url)
 
 const activitySchema = new mongoose.Schema({
+    activity: String,
     accessibility: Number,
     type: String,
     participants: Number,

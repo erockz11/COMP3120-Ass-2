@@ -97,6 +97,7 @@ const App = () => {
   const userLogout = () => {
     console.log("logging out")
     setLoggedIn(false)
+    setUser(null)
   }
 
   //function that registers a new user
@@ -179,7 +180,7 @@ const App = () => {
             </form>
 
             <h2>You should try:</h2>
-            <Activity activity={ activity } />
+            <Activity activity={ activity } loggedIn={ loggedIn } user={ user }/>
           </div>
         </Route>
 

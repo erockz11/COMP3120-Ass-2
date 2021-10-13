@@ -1,13 +1,14 @@
 import React from 'react'
 import service from '../services/services'
 
-const AddActivityButton = ({ activity, loggedIn, user }) => {
+const AddActivityButton = ({ activity, loggedIn, user, showNotification }) => {
 
     const addActivity = () => {
         service
          .addActivity(activity, user)
          .then(data => {
              console.log("success", data);
+             showNotification(`Successfully saved the activity "${activity.activity}" to My Activities`, "success", true)
          })
     }
 

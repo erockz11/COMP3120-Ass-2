@@ -6,6 +6,7 @@ import LoginForm from './components/LoginForm'
 import RegisterForm from './components/RegisterForm'
 import UserDisplay from './components/UserDisplay'
 import MyActivities from './components/MyActivities'
+import Notification from './components/Notification'
 import service from './services/services'
 
 const App = () => {
@@ -24,43 +25,48 @@ const App = () => {
   const [ activityType, setActivityType ] = useState('education')
   const [ activityParticipants, setActivityParticipants ] = useState(null)
   const [ activityPrice, setActivityPrice ] = useState(1.0)
+  const [ notificationMessage, setNotificationMessage ] = useState(null)
+  const [ notificationType, setNotificationType ] = useState(null)
 
   //function that returns a random activity from the API
   const findRandom = (event) => {
     event.preventDefault()
-    console.log("getting activity..."); //add some frontend notification here
+    showNotification("Getting activity...", "notice", false)
 
     service.getRandom()
       .then(data => {
         setActivity(data)
+        clearNotification()
       })
   }
 
   //function that returns an activity with the specified type (category)
   const findActivityByType = (event) => {
     event.preventDefault()
-    console.log("getting activity..."); //add some frontend notification here
+    showNotification("Getting activity...", "notice", false)
 
     service.getType(activityType)
       .then(data => {
         setActivity(data)
+        clearNotification()
       })
   }
 
-  //function that reutns an activity with the specified number of participants
+  //function that returns an activity with the specified number of participants
   const findActivityByParticipants = (event) => {
     event.preventDefault()
     if (activityParticipants) { //a value has been selected in the form
-      console.log("getting activity..."); //add some frontend notification here
+      showNotification("Getting activity...", "notice", false)
 
       service.getParticipants(activityParticipants)
         .then(data => {
-          setActivity(data)
+          clearNotification()
         })
     } else {
       console.log("no participant value selected");
       //display notification to select an option in the form
-      alert("Please select number of participants.")
+      // alert("Please select number of participants.")
+      showNotification("Please select number of participants.", "error", true)
     }
   }
 
@@ -68,11 +74,12 @@ const App = () => {
   //note the API currently doesn't have anything with price = 1.0
   const findActivityByPrice = (event) => {
     event.preventDefault()
-    console.log("getting activity..."); //add some frontend notification here
+    showNotification("Getting activity...", "notice", false)
 
     service.getPrice(activityPrice)
       .then(data => {
         setActivity(data)
+        clearNotification()
       })
   }
 
@@ -86,10 +93,12 @@ const App = () => {
       console.log("success:", data)
       setLoggedIn(true)
       setUser(data)
+      showNotification(`Successfully logged in as ${user.username}`, "success", true)
     })
     .catch(error => {
       console.log("error: ", error)
-      alert("Wrong username or password.")
+      // alert("Wrong username or password.")
+      showNotification("Wrong username or password.", "error", true)
     })
   }
 
@@ -98,6 +107,7 @@ const App = () => {
     console.log("logging out")
     setLoggedIn(false)
     setUser(null)
+    showNotification("Succesfully logged out.", "success", true)
   }
 
   //function that registers a new user
@@ -107,85 +117,106 @@ const App = () => {
     console.log(newUser)
   }
 
+  //function that displays a notification and hides it after five seconds if `timeout` is true
+  const showNotification = (message, type, timeout) => {
+    setNotificationMessage(message)
+    setNotificationType(type)
+    if (timeout) {
+      setTimeout(() => {
+        clearNotification()
+    }, 5000)
+    } 
+  }
+
+  //function that hides the notification
+  const clearNotification = () => {
+    setNotificationMessage(null) //reset message and type to hide the notification
+    setNotificationType(null)
+  }
+
   return (
-    <Router>
-      <div>
-        <Link to="/">Home</Link>
-        <Link to="/leaderboard">Leaderboard</Link>
-        <Link to="/my">My Activities</Link>
-        <Link to="/login">Log In/Register</Link>
-      </div>
+    <div>
+      <Router>
+        <div>
+          <Link to="/">Home</Link>
+          <Link to="/leaderboard">Leaderboard</Link>
+          <Link to="/my">My Activities</Link>
+          <Link to="/login">Log In/Register</Link>
+        </div>
 
-      <div>
-        <UserDisplay user={user} loggedIn={loggedIn} logoutFn={userLogout}  />
-      </div>
+        <div>
+          <UserDisplay user={user} loggedIn={loggedIn} logoutFn={userLogout}  />
+        </div>
 
-      <Switch>
-    
-        <Route path="/leaderboard">
-          <Leaderboard/>
-        </Route>
+        <Switch>
+      
+          <Route path="/leaderboard">
+            <Leaderboard/>
+          </Route>
 
-        <Route path="/my">
-          <MyActivities userLogin={loggedIn}/>
-        </Route>
+          <Route path="/my">
+            <MyActivities userLogin={loggedIn}/>
+          </Route>
 
-        <Route path="/login">
-          <LoginForm loginFn={userLogin} setUserFn={setUser} user={user} />
-          <RegisterForm registerFn={userRegister} newUser={newUser} setNewUser={setNewUser} />
-        </Route>
+          <Route path="/login">
+            <LoginForm loginFn={userLogin} setUserFn={setUser} user={user} />
+            <RegisterForm registerFn={userRegister} newUser={newUser} setNewUser={setNewUser} />
+          </Route>
 
-        <Route path="/">
-          <div>
-            <h1>Bored?</h1>
-            <h2>Find something to do:</h2>
+          <Route path="/">
+            <div>
+              <h1>Bored?</h1>
+              <h2>Find something to do:</h2>
 
-            <form>
-              <fieldset>
-                <label htmlFor="type">Type</label> <br />
-                <select onChange={(e) => setActivityType(e.target.value)} name="type">
-                  <option value="education">Education</option>
-                  <option value="recreational">Recreational</option>
-                  <option value="social">Social</option>
-                  <option value="DIY">DIY</option>
-                  <option value="charity">Charity</option>
-                  <option value="cooking">Cooking</option>
-                  <option value="relaxation">Relaxation</option>
-                  <option value="music">Music</option>
-                  <option value="busywork">Busywork</option>
-                </select>
-              </fieldset>
+              <form>
+                <fieldset>
+                  <label htmlFor="type">Type</label> <br />
+                  <select onChange={(e) => setActivityType(e.target.value)} name="type">
+                    <option value="education">Education</option>
+                    <option value="recreational">Recreational</option>
+                    <option value="social">Social</option>
+                    <option value="DIY">DIY</option>
+                    <option value="charity">Charity</option>
+                    <option value="cooking">Cooking</option>
+                    <option value="relaxation">Relaxation</option>
+                    <option value="music">Music</option>
+                    <option value="busywork">Busywork</option>
+                  </select>
+                </fieldset>
 
-              {/* activities.json from API currently doesn't have any activities with more than 5 participants */}
-              {/* change this implementation? */}
-              <fieldset>
-                <label htmlFor="participants">Participants</label> <br />
-                1<input type="radio" name="participants" value="1" onChange={(e) => setActivityParticipants(e.target.value)} />
-                2<input type="radio" name="participants" value="2" onChange={(e) => setActivityParticipants(e.target.value)} />
-                3<input type="radio" name="participants" value="3" onChange={(e) => setActivityParticipants(e.target.value)} />
-                4<input type="radio" name="participants" value="4" onChange={(e) => setActivityParticipants(e.target.value)} />
-                5<input type="radio" name="participants" value="5" onChange={(e) => setActivityParticipants(e.target.value)} />
-              </fieldset>
+                {/* activities.json from API currently doesn't have any activities with more than 5 participants */}
+                {/* change this implementation? */}
+                <fieldset>
+                  <label htmlFor="participants">Participants</label> <br />
+                  1<input type="radio" name="participants" value="1" onChange={(e) => setActivityParticipants(e.target.value)} />
+                  2<input type="radio" name="participants" value="2" onChange={(e) => setActivityParticipants(e.target.value)} />
+                  3<input type="radio" name="participants" value="3" onChange={(e) => setActivityParticipants(e.target.value)} />
+                  4<input type="radio" name="participants" value="4" onChange={(e) => setActivityParticipants(e.target.value)} />
+                  5<input type="radio" name="participants" value="5" onChange={(e) => setActivityParticipants(e.target.value)} />
+                </fieldset>
 
-              {/* API uses [0.0 - 1.0] */}
-              <fieldset>
-                <label htmlFor="price">Price Range</label> <br />
-                <input type="range" name="price" min="0.0" max="1.0" step="0.1" onChange={(e) => setActivityPrice(e.target.value)} />
-              </fieldset>
+                {/* API uses [0.0 - 1.0] */}
+                <fieldset>
+                  <label htmlFor="price">Price Range</label> <br />
+                  <input type="range" name="price" min="0.0" max="1.0" step="0.1" onChange={(e) => setActivityPrice(e.target.value)} />
+                </fieldset>
 
-              <button onClick={ findActivityByType }>Show me an activity (by type)</button>
-              <button onClick={ findActivityByParticipants }>Show me an activity (by participants)</button>
-              <button onClick={ findActivityByPrice }>Show me an activity (by price)</button>
-              <button onClick={ findRandom }>Show me a random activity</button>
-            </form>
+                <button onClick={ findActivityByType }>Show me an activity (by type)</button>
+                <button onClick={ findActivityByParticipants }>Show me an activity (by participants)</button>
+                <button onClick={ findActivityByPrice }>Show me an activity (by price)</button>
+                <button onClick={ findRandom }>Show me a random activity</button>
+              </form>
 
-            <h2>You should try:</h2>
-            <Activity activity={ activity } loggedIn={ loggedIn } user={ user }/>
-          </div>
-        </Route>
+              <h2>You should try:</h2>
+              <Activity activity={ activity } loggedIn={ loggedIn } user={ user } notificationFn = { showNotification } />
+            </div>
+          </Route>
 
-      </Switch>
-    </Router>
+        </Switch>
+      </Router>
+
+      <Notification message={notificationMessage} type={notificationType} />
+    </div>
   )
 }
 

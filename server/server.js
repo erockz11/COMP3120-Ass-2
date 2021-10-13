@@ -15,6 +15,14 @@ app.use(cors())
 const PORT = process.env.PORT || 3001;
 const SECRET = process.env.JWT_SECRET
 
+async function encryptPassword(user){
+    let pwcrypt;
+    return pwcrypt = await bcrypt.hash(user.password, 10).then(result => {
+        console.log(result, result)
+        return result
+    })
+}
+
 //sample activities
 let activities = [
     {
@@ -99,7 +107,7 @@ app.get('/api/myactivities/:username', (request,response) => {
 })
 
 //api endpoint to add a user and password to db
-app.post('/api/register', (request,response) => {
+app.post('/api/register', async (request,response) => {
     const newUser = request.body
 
     //check username is free
@@ -117,7 +125,8 @@ app.post('/api/register', (request,response) => {
     })
 
     if(checkIfUser) {
-        const hashedPassword = String(Pwcrypt.encryptPassword(newUser))
+        const hashedPassword = await Pwcrypt.encryptPassword(newUser)
+        //const hashedPassword = await encryptPassword(newUser)
         console.log(hashedPassword)
 
         const regUser = new User({

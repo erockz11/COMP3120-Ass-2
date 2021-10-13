@@ -27,4 +27,11 @@ const login = ({username, password}) => {
                 .then(response => response.data)
 }
 
-export default { getRandom, getType, getParticipants, getPrice, login }
+const addActivity = (activity, user) => {
+    console.log("calling function in services.js with activity:", activity);
+    console.log("and user", user);
+    return axios.post(`http://localhost:3001/api/addactivity/${user.username}`)
+                .then(response => response.data)
+}
+
+export default { getRandom, getType, getParticipants, getPrice, login, addActivity }

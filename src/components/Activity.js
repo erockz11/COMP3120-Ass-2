@@ -6,7 +6,7 @@ const Activity = ({ activity, loggedIn, user }) => {
         return (
             <div>
                 { activity.activity }
-                <AddActivityButton loggedIn={loggedIn} user={user}/>
+                <AddActivityButton activity={activity} loggedIn={loggedIn} user={user}/>
             </div>
         )
     } else {

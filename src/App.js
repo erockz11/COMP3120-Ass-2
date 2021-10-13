@@ -104,7 +104,10 @@ const App = () => {
   const userLogout = () => {
     console.log("logging out")
     setLoggedIn(false)
-    setUser(null)
+    setUser({
+      "username": "",
+      "password": ""
+    })
   }
 
   //function that registers a new user

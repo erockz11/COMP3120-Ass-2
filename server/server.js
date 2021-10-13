@@ -182,12 +182,13 @@ app.post('/api/addactivity/:username', (request,response) => {
 })
 
 //filters out specified user
-const getUser = (username) => {
-    User.find({"username": username})
-    .then(result => {
+async function getUser(user) {
+    let checkIfUser = await User.findOne({"username": user}).then(result => {
+        console.log(result)
+        console.log()
         return result
     })
-    //return users.filter(u => u.username === username)[0]
+    return checkIfUser
 }
 
 //api endpoint to handle login with {username, password}
@@ -195,7 +196,13 @@ app.post('/api/login', async (request, response) => {
 
     const {username, password} = request.body
 
-    const user = getUser(username)
+
+    let user = await getUser(username).catch(error => {
+        console.log(error)
+    })
+
+    //const user = await getUser(username)
+    //console.log(user)
     console.log(user)
 
     if(!user) {
@@ -211,7 +218,7 @@ app.post('/api/login', async (request, response) => {
       }
       const token = jwt.sign(userForToken, SECRET)
   
-        return response.status(200).json({token, username: user.username, name: user.name})
+        return response.status(200).json({token, username: user.username})
         // return response.status(200).json({username: user.username, name: user.name})
     } else {
         return response.status(401).json({error: "invalid username or password"})

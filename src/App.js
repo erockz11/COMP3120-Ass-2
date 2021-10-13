@@ -190,7 +190,7 @@ const App = () => {
             </form>
 
             <h2>You should try:</h2>
-            <Activity activity={ activity } loggedIn={ loggedIn } user={ user }/>
+            <Activity activity={ activity } loggedIn={ loggedIn } user={ user } userActivities={ userActivities } setUserActivities={ setUserActivities }/>
           </div>
         </Route>
 

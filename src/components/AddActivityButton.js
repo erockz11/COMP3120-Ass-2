@@ -1,13 +1,16 @@
 import React from 'react'
 import service from '../services/services'
 
-const AddActivityButton = ({ activity, loggedIn, user }) => {
+const AddActivityButton = ({ activity, loggedIn, user, userActivities, setUserActivities }) => {
 
     const addActivity = () => {
         service
          .addActivity(activity, user)
          .then(data => {
              console.log("success", data);
+             let updateUserActivities = userActivities
+             updateUserActivities.push(data)
+             setUserActivities(updateUserActivities)
          })
     }
 

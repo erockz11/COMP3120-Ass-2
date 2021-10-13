@@ -14,8 +14,9 @@ const doConnect = async (url) => {
 doConnect(url)
 
 const userSchema = new mongoose.Schema({
-    username: String,
-    password: String
+    uname: String,
+    password: String,
+    score: Number
 })
 
 userSchema.set('toJSON', {

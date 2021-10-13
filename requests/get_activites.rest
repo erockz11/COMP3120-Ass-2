@@ -14,3 +14,10 @@ POST http://localhost:3001/api/addactivity/test2
 Content-Type: application/json
 
 { "activity": "play monopoly", "accessibility": 0.2, "type": "social", "participants": 4, "price": 0.3}
+
+###
+
+POST http://localhost:3001/api/register
+Content-Type: application/json
+
+{ "username": "test2", "password": "0001", "score": 0 }

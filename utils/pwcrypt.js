@@ -20,3 +20,14 @@ console.log(data)
 data.map(u => {
     const pwcrypt = bcrypt.hash(u.password, 10).then(result => console.log(u.username, result))
 })
+
+//takes in a user object and encrypts the users password
+async function encryptPassword(user){
+    let pwcrypt = await bcrypt.hash(user.password, 10).then(result => {
+        console.log(result, result)
+        return result
+    })
+    return pwcrypt
+}
+
+exports.encryptPassword = encryptPassword

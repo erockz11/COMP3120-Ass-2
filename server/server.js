@@ -7,6 +7,7 @@ const app = express()
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 require('dotenv').config()
+const Pwcrypt =  require('../utils/pwcrypt')
 
 app.use(express.json())
 app.use(cors())
@@ -97,6 +98,47 @@ app.get('/api/myactivities/:username', (request,response) => {
     }
 })
 
+//api endpoint to add a user and password to db
+app.post('/api/register', (request,response) => {
+    const newUser = request.body
+
+    //check username is free
+    async function checkUser() {
+        let checkIfUser = await User.findOne({"uname": newUser.username}).then(result => {
+            console.log(result)
+            console.log()
+            return result
+        })
+        return checkIfUser
+    }
+
+    let checkIfUser = checkUser().catch(error => {
+        console.log(error)
+    })
+
+    if(checkIfUser) {
+        const hashedPassword = String(Pwcrypt.encryptPassword(newUser))
+        console.log(hashedPassword)
+
+        const regUser = new User({
+            "uname": newUser.username,
+            "password": hashedPassword,
+            "score": newUser.score
+        })
+        
+        console.log("this is my password?")
+        console.log(regUser.password)
+        regUser.save().then(result => {
+            console.log("user saved")
+            response.send(result)
+        })
+    } else {
+        response.status(401).end("Username already exists")
+    }
+
+    
+})
+
 //api endpoint to add an activity to a user's account
 app.post('/api/addactivity/:username', (request,response) => {
     const user = request.params.username
@@ -105,36 +147,23 @@ app.post('/api/addactivity/:username', (request,response) => {
     console.log(isUser)
     const sentActivity = request.body
 
-    /*const activity = {
-        "activity": newActivity.activity,
-        "accessibility": newActivity.accessibility,
-        "type": newActivity.type,
-        "participants": newActivity.participants,
-        "price": newActivity.price,
-        "username": user,
-        "id": generateId()
-    }*/
-
-    const newActivity = new Activity({
-        "activity": sentActivity.activity,
-        "accessibility": sentActivity.accessibility,
-        "type": sentActivity.type,
-        "participants": sentActivity.participants,
-        "price": sentActivity.price,
-        "username": user,
-    })
-
-    console.log(newActivity.activity)
-
-    newActivity.save().then(result => {
-        console.log("record saved")
-        response.send(result);
-    })
-
     if(isUser){
-        //activities = activities.concat(activity)
-        //let userActivities = activities.filter(name => name.username === user)
-        //response.send(userActivities)
+
+        const newActivity = new Activity({
+            "activity": sentActivity.activity,
+            "accessibility": sentActivity.accessibility,
+            "type": sentActivity.type,
+            "participants": sentActivity.participants,
+            "price": sentActivity.price,
+            "username": user,
+        })
+    
+        console.log(newActivity.activity)
+    
+        newActivity.save().then(result => {
+            console.log("record saved")
+            response.send(result);
+        })
         
     } else {
         response.status(401).end("Unauthroized response")
@@ -144,7 +173,11 @@ app.post('/api/addactivity/:username', (request,response) => {
 
 //filters out specified user
 const getUser = (username) => {
-    return users.filter(u => u.username === username)[0]
+    User.find({"username": username})
+    .then(result => {
+        return result
+    })
+    //return users.filter(u => u.username === username)[0]
 }
 
 //api endpoint to handle login with {username, password}
@@ -186,3 +219,4 @@ const generateId = () => {
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
 })
+

@@ -28,9 +28,7 @@ const login = ({username, password}) => {
 }
 
 const addActivity = (activity, user) => {
-    console.log("calling function in services.js with activity:", activity);
-    console.log("and user", user);
-    return axios.post(`http://localhost:3001/api/addactivity/${user.username}`)
+    return axios.post(`http://localhost:3001/api/addactivity/${user.username}`, activity)
                 .then(response => response.data)
 }
 

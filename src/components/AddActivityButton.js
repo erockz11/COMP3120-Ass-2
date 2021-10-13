@@ -4,11 +4,10 @@ import service from '../services/services'
 const AddActivityButton = ({ activity, loggedIn, user }) => {
 
     const addActivity = () => {
-        console.log(`add activity ${activity.activity} to user ${user.username}`);
         service
          .addActivity(activity, user)
          .then(data => {
-             console.log("success?", data);
+             console.log("success", data);
          })
     }
 

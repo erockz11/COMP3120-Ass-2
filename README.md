@@ -59,6 +59,7 @@ All components are located in the `components` folder.
 - `Leaderboard.js`: Component that displays score rankings of users.
 - `LoginForm.js`: Form for users to login to their accounts.
 - `MyActivities.js`: Component that displays a user's current activities.
+- `Notification.js`: Component that displays a notification to the user.
 - `RegisterForm.js`: Form for users to create an account if they do not already have one.
 - `UserDisplay.js`: When a user logs in successfully, their username is displayed by this component.
 

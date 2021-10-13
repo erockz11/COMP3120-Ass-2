@@ -179,7 +179,7 @@ const App = () => {
             </form>
 
             <h2>You should try:</h2>
-            <Activity activity={ activity } />
+            <Activity activity={ activity } loggedIn={ loggedIn } user={ user }/>
           </div>
         </Route>
 

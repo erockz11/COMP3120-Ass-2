@@ -61,6 +61,7 @@ const App = () => {
       service.getParticipants(activityParticipants)
         .then(data => {
           clearNotification()
+          setActivity(data)
         })
     } else {
       console.log("no participant value selected");

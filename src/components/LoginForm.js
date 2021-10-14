@@ -32,7 +32,7 @@ const LoginForm = ({loginFn, setUserFn, user}) => {
                     <label htmlFor="pword"><b>Password</b></label>
                     <input type="password" placeholder="Enter Password" name="pword" onChange={handlePassword}></input>
 
-                    <button>Login</button>
+                    <button style={{marginLeft: '5px'}} >Login</button>
                 </div>
             </form>
         </div>

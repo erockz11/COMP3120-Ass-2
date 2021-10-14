@@ -17,7 +17,7 @@ const MyActivities = ({userLogin}) => {
     } else {
         return (
             <div>
-                <h3>Not Logged In</h3>
+                <h3 style={{padding: '50px'}} >Not Logged In</h3>
             </div>
         )
     }

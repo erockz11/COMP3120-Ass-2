@@ -37,4 +37,18 @@ const getActivities = ({username}) => {
                 .then(response => response.data)
 }
 
-export default { getRandom, getType, getParticipants, getPrice, login, addActivity, getActivities }
+const register = (user) => {
+    return axios.post(`http://localhost:3001/api/register`, user)
+                .then(response => response.data)
+}
+
+export default { 
+    getRandom, 
+    getType, 
+    getParticipants, 
+    getPrice, 
+    login, 
+    addActivity, 
+    getActivities,
+    register 
+}

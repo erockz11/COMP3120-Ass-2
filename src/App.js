@@ -24,7 +24,7 @@ const App = () => {
   const [ activityType, setActivityType ] = useState('education')
   const [ activityParticipants, setActivityParticipants ] = useState(null)
   const [ activityPrice, setActivityPrice ] = useState(1.0)
-  const [ userActivities, setUserActivities ] = useState(null)
+  const [ userActivities, setUserActivities ] = useState([])
 
   //function that returns a random activity from the API
   const findRandom = (event) => {
@@ -142,7 +142,7 @@ const App = () => {
 
         <Route path="/login">
           <LoginForm loginFn={userLogin} setUserFn={setUser} user={user} />
-          <RegisterForm registerFn={userRegister} newUser={newUser} setNewUser={setNewUser} />
+          <RegisterForm setLoggedIn={setLoggedIn} newUser={newUser} setNewUser={setNewUser} setUser={setUser} />
         </Route>
 
         <Route path="/">

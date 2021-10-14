@@ -36,9 +36,12 @@ app.get('/api/myactivities/:username', async (request,response) => {
 //api endpoint to add a user and password to db
 app.post('/api/register', async (request,response) => {
     const newUser = request.body
-
+    console.log(newUser.password)
     //hash the password
     const hashedPassword = await Pwcrypt.encryptPassword(newUser)
+        .catch(error => {
+            console.log(error)
+    })
     console.log(hashedPassword)
 
     //create a new User record to save to db
@@ -47,6 +50,7 @@ app.post('/api/register', async (request,response) => {
         "password": hashedPassword,
         "score": newUser.score
     })
+
     
     console.log("this is my password?")
     console.log(regUser.password)
@@ -54,7 +58,12 @@ app.post('/api/register', async (request,response) => {
     await regUser.save()
     .then(result => {
         console.log("user saved")
-        response.send(result)
+        const userForToken = {
+            id: result.id,
+            username: result.username
+          }
+        const token = jwt.sign(userForToken, SECRET)
+        response.send( {token, "username": result.username, "score": result.score } )
     }).catch(error => {
         console.log(error)
         response.status(401).end("That Username already exists")
@@ -133,7 +142,7 @@ app.post('/api/login', async (request, response) => {
       const token = jwt.sign(userForToken, SECRET)
   
         return response.status(200).json({token, username: user.username})
-        // return response.status(200).json({username: user.username, name: user.name})
+        // return response.status(200).json({username: user.username})
     } else {
         return response.status(401).json({error: "invalid username or password"})
     }

@@ -7,9 +7,14 @@ Write your name next to the item to claim it
 Bored api integration: Josh\
 Express Server: Jaime\
 User Auth: Scott\
+JWT: Scott\
 Integration of frontend to backend: Scott/Jaime/Josh\
 Database: Jaime\
 Styling: Sahana
 
 # Week 11 todo
-TBD
+Merge server branch:\
+Merge frontend branch:\
+Add activity endpoint integration:\
+Complete activity endpoint integration:\
+Continue working on styling/UI:

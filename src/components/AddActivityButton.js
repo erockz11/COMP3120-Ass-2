@@ -14,11 +14,11 @@ const AddActivityButton = ({ activity, loggedIn, user, showNotification }) => {
 
     if (loggedIn) {
         return (
-            <button onClick={addActivity}>Add to My Activities</button>
+            <button style={{fontWeight: 'bold'}} onClick={addActivity}>Add to My Activities</button>
         )
     } else {
         return (
-            <div>
+            <div style={{fontSize: '10px'}}>
                 Log in to save this activity
             </div>
         )

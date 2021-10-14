@@ -138,10 +138,10 @@ const App = () => {
     <div>
       <Router>
       <div>
-        <Link to="/" style={{ textDecoration: 'none', padding: '10px' }}> Home</Link>
-        <Link to="/leaderboard" style={{ textDecoration: 'none', padding: '10px' }}>Leaderboard</Link>
-        <Link to="/my" style={{ textDecoration: 'none', padding: '10px' }}>My Activities</Link>
-        <Link to="/login" style={{ textDecoration: 'none', padding: '10px' }}>Log In/Register</Link>
+        <Link to="/" style={{ textDecoration: 'none', padding: '10px', float: 'left' }}> Home</Link>
+        <Link to="/leaderboard" style={{ textDecoration: 'none', padding: '10px', float: 'left' }}>Leaderboard</Link>
+        <Link to="/my" style={{ textDecoration: 'none', padding: '10px', float: 'left' }}>My Activities</Link>
+        <Link to="/login" style={{ textDecoration: 'none', padding: '10px', float: 'left' }}>Log In/Register</Link>
       </div>
 
       <div>
@@ -188,11 +188,11 @@ const App = () => {
               {/* change this implementation? */}
               <fieldset>
                 <label htmlFor="participants">Participants</label> <br />
-                1<input type="radio" name="participants" value="1" onChange={(e) => setActivityParticipants(e.target.value)} />
-                2<input type="radio" name="participants" value="2" onChange={(e) => setActivityParticipants(e.target.value)} />
-                3<input type="radio" name="participants" value="3" onChange={(e) => setActivityParticipants(e.target.value)} />
-                4<input type="radio" name="participants" value="4" onChange={(e) => setActivityParticipants(e.target.value)} />
-                5<input type="radio" name="participants" value="5" onChange={(e) => setActivityParticipants(e.target.value)} />
+                1<input style={{marginRight: '15px', marginLeft: '3px'}} type="radio" name="participants" value="1" onChange={(e) => setActivityParticipants(e.target.value)} />
+                2<input style={{marginRight: '15px', marginLeft: '3px'}} type="radio" name="participants" value="2" onChange={(e) => setActivityParticipants(e.target.value)} />
+                3<input style={{marginRight: '15px', marginLeft: '3px'}} type="radio" name="participants" value="3" onChange={(e) => setActivityParticipants(e.target.value)} />
+                4<input style={{marginRight: '15px', marginLeft: '3px'}} type="radio" name="participants" value="4" onChange={(e) => setActivityParticipants(e.target.value)} />
+                5<input style={{marginRight: '15px', marginLeft: '3px'}} type="radio" name="participants" value="5" onChange={(e) => setActivityParticipants(e.target.value)} />
               </fieldset>
 
               {/* API uses [0.0 - 1.0] */}
@@ -201,10 +201,10 @@ const App = () => {
                 <input type="range" name="price" min="0.0" max="1.0" step="0.1" onChange={(e) => setActivityPrice(e.target.value)} />
               </fieldset>
 
-              <button onClick={ findActivityByType }>Show me an activity (by type)</button>
-              <button onClick={ findActivityByParticipants }>Show me an activity (by participants)</button>
-              <button onClick={ findActivityByPrice }>Show me an activity (by price)</button>
-              <button onClick={ findRandom }>Show me a random activity</button>
+              <button className="button-primary" onClick={ findActivityByType } style={{marginRight: '10px'}}>Show me an activity (by type)</button>
+              <button className="button-primary" onClick={ findActivityByParticipants } style={{marginRight: '10px'}}>Show me an activity (by participants)</button>
+              <button className="button-primary" onClick={ findActivityByPrice } style={{marginRight: '10px'}}>Show me an activity (by price)</button>
+              <button className="button-primary" onClick={ findRandom } style={{marginRight: '10px'}}>Show me a random activity</button>
             </form>
 
             <h2>You should try:</h2>

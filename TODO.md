@@ -18,4 +18,5 @@ Merge frontend branch: Jaime(done)\
 Add activity endpoint integration:Jaime(done)\
 Complete activity endpoint integration: Jaime(serverside done),(frontend todo)\
 Testing:\
+Leaderboard integration (backend/frontend):\
 Continue working on styling/UI:

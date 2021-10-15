@@ -8,7 +8,7 @@ const MyActivities = ({userLogin, userActivities}) => {
                 <h1>My Activities</h1>
                 <ul>
                     {userActivities.map(activity =>
-                        <li key={activity.key}>{activity.activity}</li>)}
+                        <li key={activity.id}>{activity.activity}</li>)}
                 </ul>
             </div>
         )

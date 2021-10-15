@@ -8,6 +8,7 @@ const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 require('dotenv').config()
 const Pwcrypt =  require('../utils/pwcrypt')
+const { response } = require('express')
 
 app.use(express.json())
 app.use(cors())
@@ -48,7 +49,7 @@ app.post('/api/register', async (request,response) => {
     const regUser = new User({
         "username": newUser.username,
         "password": hashedPassword,
-        "score": newUser.score
+        "score": 0
     })
 
     
@@ -147,6 +148,39 @@ app.post('/api/login', async (request, response) => {
         return response.status(401).json({error: "invalid username or password"})
     }
 })
+
+app.delete('/api/completeactivity', async (request, response) => {
+    const sentActivity = request.body
+
+    let activityScore = calcScore(sentActivity.participants, sentActivity.accessibility, sentActivity.score)
+    console.log(activityScore)
+
+    let user = await User.findOneAndUpdate( { "username": sentActivity.username }, { "score": activityScore }, { new: true } )
+    .catch(error => {
+        response.status(401).end("could not find user",error)
+    })
+
+    console.log(user.id)
+
+    //const act = await Activity.findById( {"_id": id } ).then(result => {
+        //console.log(result)
+        //return result
+    //})
+
+    let activity = await Activity.findByIdAndDelete( sentActivity.id )
+    .catch(error => {
+        response.status(401).end("activity not found")
+    })
+
+    console.log("Did we delete?")
+
+    response.status(200).json( { "username": user.username, "score": user.score } )
+})
+
+const calcScore = (participants, accessibility, score) => {
+    score += (accessibility * 10) + participants
+    return score
+}
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)

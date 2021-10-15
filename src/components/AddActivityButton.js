@@ -1,7 +1,7 @@
 import React from 'react'
 import service from '../services/services'
 
-const AddActivityButton = ({ activity, loggedIn, user, userActivities, setUserActivities }) => {
+const AddActivityButton = ({ activity, loggedIn, user, userActivities, setUserActivities, showNotification }) => {
 
     const addActivity = () => {
         service
@@ -11,16 +11,17 @@ const AddActivityButton = ({ activity, loggedIn, user, userActivities, setUserAc
              let updateUserActivities = userActivities
              updateUserActivities.push(data)
              setUserActivities(updateUserActivities)
+             showNotification(`Successfully saved the activity "${activity.activity}" to My Activities`, "success", true)
          })
     }
 
     if (loggedIn) {
         return (
-            <button onClick={addActivity}>Add to My Activities</button>
+            <button style={{fontWeight: 'bold'}} onClick={addActivity}>Add to My Activities</button>
         )
     } else {
         return (
-            <div>
+            <div style={{fontSize: '10px'}}>
                 Log in to save this activity
             </div>
         )

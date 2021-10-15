@@ -55,7 +55,7 @@ const RegisterForm = ({setLoggedIn, newUser, setNewUser, setUser}) => {
                     <label htmlFor="makepword"><b>Register Password</b></label>
                     <input type="password" placeholder="Create Your Password" name="makepword" onChange={handlePassword}></input>
 
-                    <button>Register</button>
+                    <button style={{marginLeft: '5px'}} >Register</button>
                 </div>
 
             </form>

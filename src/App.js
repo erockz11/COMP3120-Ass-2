@@ -6,6 +6,7 @@ import LoginForm from './components/LoginForm'
 import RegisterForm from './components/RegisterForm'
 import UserDisplay from './components/UserDisplay'
 import MyActivities from './components/MyActivities'
+import Notification from './components/Notification'
 import service from './services/services'
 
 const App = () => {
@@ -25,43 +26,49 @@ const App = () => {
   const [ activityParticipants, setActivityParticipants ] = useState(null)
   const [ activityPrice, setActivityPrice ] = useState(1.0)
   const [ userActivities, setUserActivities ] = useState([])
+  const [ notificationMessage, setNotificationMessage ] = useState(null)
+  const [ notificationType, setNotificationType ] = useState(null)
 
   //function that returns a random activity from the API
   const findRandom = (event) => {
     event.preventDefault()
-    console.log("getting activity..."); //add some frontend notification here
+    showNotification("Getting activity...", "notice", false)
 
     service.getRandom()
       .then(data => {
         setActivity(data)
+        clearNotification()
       })
   }
 
   //function that returns an activity with the specified type (category)
   const findActivityByType = (event) => {
     event.preventDefault()
-    console.log("getting activity..."); //add some frontend notification here
+    showNotification("Getting activity...", "notice", false)
 
     service.getType(activityType)
       .then(data => {
         setActivity(data)
+        clearNotification()
       })
   }
 
-  //function that reutns an activity with the specified number of participants
+  //function that returns an activity with the specified number of participants
   const findActivityByParticipants = (event) => {
     event.preventDefault()
     if (activityParticipants) { //a value has been selected in the form
-      console.log("getting activity..."); //add some frontend notification here
+      showNotification("Getting activity...", "notice", false)
 
       service.getParticipants(activityParticipants)
         .then(data => {
+          clearNotification()
           setActivity(data)
         })
     } else {
       console.log("no participant value selected");
       //display notification to select an option in the form
-      alert("Please select number of participants.")
+      // alert("Please select number of participants.")
+      showNotification("Please select number of participants.", "error", true)
     }
   }
 
@@ -69,11 +76,12 @@ const App = () => {
   //note the API currently doesn't have anything with price = 1.0
   const findActivityByPrice = (event) => {
     event.preventDefault()
-    console.log("getting activity..."); //add some frontend notification here
+    showNotification("Getting activity...", "notice", false)
 
     service.getPrice(activityPrice)
       .then(data => {
         setActivity(data)
+        clearNotification()
       })
   }
 
@@ -87,10 +95,12 @@ const App = () => {
       console.log("success:", data)
       setLoggedIn(true)
       setUser(data)
+      showNotification(`Successfully logged in as ${user.username}`, "success", true)
     })
     .catch(error => {
       console.log("error: ", error)
-      alert("Wrong username or password.")
+      // alert("Wrong username or password.")
+      showNotification("Wrong username or password.", "error", true)
     })
 
     //once the user has logged in, get their saved activities
@@ -104,10 +114,8 @@ const App = () => {
   const userLogout = () => {
     console.log("logging out")
     setLoggedIn(false)
-    setUser({
-      "username": "",
-      "password": ""
-    })
+    setUser(null)
+    showNotification("Succesfully logged out.", "success", true)
   }
 
   //function that registers a new user
@@ -117,13 +125,31 @@ const App = () => {
     console.log(newUser)
   }
 
+  //function that displays a notification and hides it after five seconds if `timeout` is true
+  const showNotification = (message, type, timeout) => {
+    setNotificationMessage(message)
+    setNotificationType(type)
+    if (timeout) {
+      setTimeout(() => {
+        clearNotification()
+    }, 5000)
+    } 
+  }
+
+  //function that hides the notification
+  const clearNotification = () => {
+    setNotificationMessage(null) //reset message and type to hide the notification
+    setNotificationType(null)
+  }
+
   return (
-    <Router>
+    <div>
+      <Router>
       <div>
-        <Link to="/">Home</Link>
-        <Link to="/leaderboard">Leaderboard</Link>
-        <Link to="/my">My Activities</Link>
-        <Link to="/login">Log In/Register</Link>
+        <Link to="/" style={{ textDecoration: 'none', padding: '10px', float: 'left' }}> Home</Link>
+        <Link to="/leaderboard" style={{ textDecoration: 'none', padding: '10px', float: 'left' }}>Leaderboard</Link>
+        <Link to="/my" style={{ textDecoration: 'none', padding: '10px', float: 'left' }}>My Activities</Link>
+        <Link to="/login" style={{ textDecoration: 'none', padding: '10px', float: 'left' }}>Log In/Register</Link>
       </div>
 
       <div>
@@ -131,7 +157,7 @@ const App = () => {
       </div>
 
       <Switch>
-    
+
         <Route path="/leaderboard">
           <Leaderboard/>
         </Route>
@@ -170,11 +196,11 @@ const App = () => {
               {/* change this implementation? */}
               <fieldset>
                 <label htmlFor="participants">Participants</label> <br />
-                1<input type="radio" name="participants" value="1" onChange={(e) => setActivityParticipants(e.target.value)} />
-                2<input type="radio" name="participants" value="2" onChange={(e) => setActivityParticipants(e.target.value)} />
-                3<input type="radio" name="participants" value="3" onChange={(e) => setActivityParticipants(e.target.value)} />
-                4<input type="radio" name="participants" value="4" onChange={(e) => setActivityParticipants(e.target.value)} />
-                5<input type="radio" name="participants" value="5" onChange={(e) => setActivityParticipants(e.target.value)} />
+                1<input style={{marginRight: '15px', marginLeft: '3px'}} type="radio" name="participants" value="1" onChange={(e) => setActivityParticipants(e.target.value)} />
+                2<input style={{marginRight: '15px', marginLeft: '3px'}} type="radio" name="participants" value="2" onChange={(e) => setActivityParticipants(e.target.value)} />
+                3<input style={{marginRight: '15px', marginLeft: '3px'}} type="radio" name="participants" value="3" onChange={(e) => setActivityParticipants(e.target.value)} />
+                4<input style={{marginRight: '15px', marginLeft: '3px'}} type="radio" name="participants" value="4" onChange={(e) => setActivityParticipants(e.target.value)} />
+                5<input style={{marginRight: '15px', marginLeft: '3px'}} type="radio" name="participants" value="5" onChange={(e) => setActivityParticipants(e.target.value)} />
               </fieldset>
 
               {/* API uses [0.0 - 1.0] */}
@@ -183,10 +209,10 @@ const App = () => {
                 <input type="range" name="price" min="0.0" max="1.0" step="0.1" onChange={(e) => setActivityPrice(e.target.value)} />
               </fieldset>
 
-              <button onClick={ findActivityByType }>Show me an activity (by type)</button>
-              <button onClick={ findActivityByParticipants }>Show me an activity (by participants)</button>
-              <button onClick={ findActivityByPrice }>Show me an activity (by price)</button>
-              <button onClick={ findRandom }>Show me a random activity</button>
+              <button className="button-primary" onClick={ findActivityByType } style={{marginRight: '10px'}}>Show me an activity (by type)</button>
+              <button className="button-primary" onClick={ findActivityByParticipants } style={{marginRight: '10px'}}>Show me an activity (by participants)</button>
+              <button className="button-primary" onClick={ findActivityByPrice } style={{marginRight: '10px'}}>Show me an activity (by price)</button>
+              <button className="button-primary" onClick={ findRandom } style={{marginRight: '10px'}}>Show me a random activity</button>
             </form>
 
             <h2>You should try:</h2>
@@ -196,6 +222,9 @@ const App = () => {
 
       </Switch>
     </Router>
+
+      <Notification message={notificationMessage} type={notificationType} />
+    </div>
   )
 }
 

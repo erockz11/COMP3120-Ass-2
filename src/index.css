@@ -1,13 +1,38 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  margin: 25px;
+  text-align: center;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+h1 {
+  font-weight: bold;
+  margin-top: 10px;
+  padding-top: 50px;
+}
+
+/* global styling for all variants of the Notification component */
+[class^="notification-"] {
+  position: fixed;
+  z-index: 1;
+  bottom: 5%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: auto;
+  text-align: center;
+}
+
+.notification-success {
+  background-color: green;
+  color: #fff;
+}
+
+.notification-error {
+  background-color: #ff0000;
+  color: #fff;
+}
+
+.notification-notice {
+  background-color: darkgoldenrod;
+  color: #000;
 }

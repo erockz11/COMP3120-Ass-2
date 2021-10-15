@@ -13,8 +13,9 @@ Database: Jaime\
 Styling: Sahana
 
 # Week 11 todo
-Merge server branch:\
-Merge frontend branch:\
-Add activity endpoint integration:\
-Complete activity endpoint integration:\
+Merge server branch: Jaime(done)\
+Merge frontend branch: Jaime(done)\
+Add activity endpoint integration:Jaime(done)\
+Complete activity endpoint integration: Jaime(serverside done),(frontend todo)\
+Testing:\
 Continue working on styling/UI:

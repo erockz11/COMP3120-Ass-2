@@ -118,12 +118,6 @@ const App = () => {
     showNotification("Succesfully logged out.", "success", true)
   }
 
-  //function that registers a new user
-  const userRegister = (event) => {
-    event.preventDefault()
-    console.log("Registering a new user")
-    console.log(newUser)
-  }
 
   //function that displays a notification and hides it after five seconds if `timeout` is true
   const showNotification = (message, type, timeout) => {
@@ -216,7 +210,7 @@ const App = () => {
             </form>
 
             <h2>You should try:</h2>
-            <Activity activity={ activity } loggedIn={ loggedIn } user={ user } userActivities={ userActivities } setUserActivities={ setUserActivities }/>
+            <Activity activity={ activity } loggedIn={ loggedIn } user={ user } userActivities={ userActivities } setUserActivities={ setUserActivities } showNotification={showNotification} />
           </div>
         </Route>
 

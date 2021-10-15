@@ -24,6 +24,7 @@ const App = () => {
   const [ activityType, setActivityType ] = useState('education')
   const [ activityParticipants, setActivityParticipants ] = useState(null)
   const [ activityPrice, setActivityPrice ] = useState(1.0)
+  const [ userActivities, setUserActivities ] = useState([])
 
   //function that returns a random activity from the API
   const findRandom = (event) => {
@@ -91,12 +92,22 @@ const App = () => {
       console.log("error: ", error)
       alert("Wrong username or password.")
     })
+
+    //once the user has logged in, get their saved activities
+    service.getActivities(user)
+    .then(data => {
+      setUserActivities(data)
+    })
   }
 
   //function that logs out a user
   const userLogout = () => {
     console.log("logging out")
     setLoggedIn(false)
+    setUser({
+      "username": "",
+      "password": ""
+    })
   }
 
   //function that registers a new user
@@ -126,12 +137,12 @@ const App = () => {
         </Route>
 
         <Route path="/my">
-          <MyActivities userLogin={loggedIn}/>
+          <MyActivities userLogin={loggedIn} userActivities={userActivities}/>
         </Route>
 
         <Route path="/login">
           <LoginForm loginFn={userLogin} setUserFn={setUser} user={user} />
-          <RegisterForm registerFn={userRegister} newUser={newUser} setNewUser={setNewUser} />
+          <RegisterForm setLoggedIn={setLoggedIn} newUser={newUser} setNewUser={setNewUser} setUser={setUser} />
         </Route>
 
         <Route path="/">
@@ -179,7 +190,7 @@ const App = () => {
             </form>
 
             <h2>You should try:</h2>
-            <Activity activity={ activity } />
+            <Activity activity={ activity } loggedIn={ loggedIn } user={ user } userActivities={ userActivities } setUserActivities={ setUserActivities }/>
           </div>
         </Route>
 

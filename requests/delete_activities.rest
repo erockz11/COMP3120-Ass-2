@@ -1,0 +1,14 @@
+DELETE http://localhost:3001/api/completeactivity
+Content-Type: application/json
+
+{ 
+    "activity": "Shred old documents you don't need anymore",
+    "accessibility": 0,
+    "type": "busywork", 
+    "participants": 1,
+    "price": 0,
+    "username": "test1",
+    "id": "616939e46155431210ca54ac",
+    "score": 5
+}
+

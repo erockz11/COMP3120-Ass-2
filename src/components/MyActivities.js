@@ -1,17 +1,15 @@
 import React from 'react'
 
-const MyActivities = ({userLogin}) => {
+const MyActivities = ({userLogin, userActivities}) => {
 
     if(userLogin) {
         return (
             <div>
-                <h1>My Activites</h1>
-                <p>Learn Express.js</p>
-                <p>Bake something you've never tried before</p>
-                <p>Learn how to play a new sport</p>
-                <p>Text a friend you haven't talked to in a long time</p>
-                <p>Meditate for five minutes</p>
-                <p>Learn to play a new instrument</p>
+                <h1>My Activities</h1>
+                <ul>
+                    {userActivities.map(activity =>
+                        <li key={activity.key}>{activity.activity}</li>)}
+                </ul>
             </div>
         )
     } else {

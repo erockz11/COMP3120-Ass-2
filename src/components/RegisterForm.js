@@ -1,7 +1,28 @@
 import React from 'react'
+import Services from '../services/services'
 
 //component to allow the user to login using a username and password
-const RegisterForm = ({registerFn, newUser, setNewUser}) => {
+const RegisterForm = ({setLoggedIn, newUser, setNewUser, setUser}) => {
+
+    const userRegister = (event) => {
+        event.preventDefault()
+        console.log("Registering a new user")
+        console.log(newUser)
+
+        Services.register(newUser).then(response => {
+            console.log(response)
+            const registeredUser = {
+                "username": response.username,
+                "score": 0,
+                "token": response.token
+            }
+            setLoggedIn(true)
+            setUser(registeredUser)
+        }).catch(error => {
+            console.log(error)
+        })
+
+      }
 
     const handleUsername = (event) => {
         const registerUser = {
@@ -25,7 +46,7 @@ const RegisterForm = ({registerFn, newUser, setNewUser}) => {
             <div>
                 <h1>Register</h1>
             </div>
-            <form onSubmit={registerFn}>
+            <form onSubmit={userRegister}>
 
                 <div className="reg-form-container">
                     <label htmlFor="makeUser"><b>Register Username</b></label>

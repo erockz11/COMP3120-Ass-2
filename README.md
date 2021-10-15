@@ -55,6 +55,7 @@ There will be a form with drop down tables that users can use to specify the par
 All components are located in the `components` folder.
 
 - `Activity.js`: Displays information for a single activity, passed as props.
+- `AddActivityButton.js`: Displays a button for a logged in user to save an activity to My Activities.
 - `Leaderboard.js`: Component that displays score rankings of users.
 - `LoginForm.js`: Form for users to login to their accounts.
 - `MyActivities.js`: Component that displays a user's current activities.
@@ -73,6 +74,7 @@ A list of functions, location and what they do
 
 - `App.js`: The main file of the App.
 - `server.js`: Backend express server.
+- `services.js`: Handles HTTP requests made in the App through to the backend server.
 - `get_activities.rest`: File for sending http requests to test the server api endpoints. Located in the `requests` folder under root.
 - `login_tests.rest`: File for sending http requests to test the login api endpoint. Located in the `requests` folder under root.
 
@@ -84,6 +86,8 @@ A list of functions, location and what they do
 # Next Steps
 
 (A summary of what your next steps would be if you were to continue the project)
+
+- Combine the individual frontend forms into a single form which returns an activity meeting all parameters specified. Because the API only has endpoints which return a single random activity, this might require multiple requests until a matching activity is returned.
 
 # Summary of Team Roles/Contributions
 

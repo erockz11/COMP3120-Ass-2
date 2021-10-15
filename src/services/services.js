@@ -27,4 +27,28 @@ const login = ({username, password}) => {
                 .then(response => response.data)
 }
 
-export default { getRandom, getType, getParticipants, getPrice, login }
+const addActivity = (activity, user) => {
+    return axios.post(`http://localhost:3001/api/addactivity/${user.username}`, activity)
+                .then(response => response.data)
+}
+
+const getActivities = ({username}) => {
+    return axios.get(`http://localhost:3001/api/myactivities/${username}`)
+                .then(response => response.data)
+}
+
+const register = (user) => {
+    return axios.post(`http://localhost:3001/api/register`, user)
+                .then(response => response.data)
+}
+
+export default { 
+    getRandom, 
+    getType, 
+    getParticipants, 
+    getPrice, 
+    login, 
+    addActivity, 
+    getActivities,
+    register 
+}

@@ -8,6 +8,10 @@ const UserDisplay = ({user, loggedIn, logoutFn}) => {
     const handleClick = () => {
         logoutFn()
     }
+    if(loggedIn){
+        console.log(user)
+        console.log(user.username)
+    }
 
     if(loggedIn) {
         return (

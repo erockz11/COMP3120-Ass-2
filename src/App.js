@@ -114,7 +114,10 @@ const App = () => {
   const userLogout = () => {
     console.log("logging out")
     setLoggedIn(false)
-    setUser(null)
+    setUser({
+      "username": "",
+      "password": ""
+    })
     showNotification("Succesfully logged out.", "success", true)
   }
 
@@ -162,7 +165,7 @@ const App = () => {
 
         <Route path="/login">
           <LoginForm loginFn={userLogin} setUserFn={setUser} user={user} />
-          <RegisterForm setLoggedIn={setLoggedIn} newUser={newUser} setNewUser={setNewUser} setUser={setUser} />
+          <RegisterForm setLoggedIn={setLoggedIn} newUser={newUser} setNewUser={setNewUser} setUser={setUser} setUserActivities={setUserActivities} />
         </Route>
 
         <Route path="/">

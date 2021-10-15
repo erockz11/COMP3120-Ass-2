@@ -2,7 +2,7 @@ import React from 'react'
 import Services from '../services/services'
 
 //component to allow the user to login using a username and password
-const RegisterForm = ({setLoggedIn, newUser, setNewUser, setUser}) => {
+const RegisterForm = ({setLoggedIn, newUser, setNewUser, setUser, setUserActivities}) => {
 
     const userRegister = (event) => {
         event.preventDefault()
@@ -18,9 +18,12 @@ const RegisterForm = ({setLoggedIn, newUser, setNewUser, setUser}) => {
             }
             setLoggedIn(true)
             setUser(registeredUser)
+            setUserActivities([])
         }).catch(error => {
             console.log(error)
         })
+
+
 
       }
 

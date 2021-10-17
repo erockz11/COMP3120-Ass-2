@@ -16,7 +16,7 @@ Styling: Sahana
 Merge server branch: Jaime(done)\
 Merge frontend branch: Jaime(done)\
 Add activity endpoint integration:Jaime(done)\
-Complete activity endpoint integration: Jaime(serverside done),(frontend todo)\
+Complete activity endpoint integration: Jaime(serverside done), Josh (frontend done)\
 Testing:\
 Leaderboard integration (backend/frontend):\
-Continue working on styling/UI:
+Continue working on styling/UI: Josh (layout and displayed activity info)

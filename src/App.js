@@ -85,6 +85,18 @@ const App = () => {
       })
   }
 
+  const completeActivity = (activity) => {
+    console.log("complete activity", activity);
+    service.completeActivity(activity)
+     .then(data => {
+         console.log("activity completed?", data);
+         setUserActivities(userActivities.filter(a => a.id !== activity.id))
+     })
+     .catch(error => {
+         console.log(error);
+     })
+}
+
   //function that logs in a user
   const userLogin = (event) => {
     event.preventDefault()
@@ -160,7 +172,7 @@ const App = () => {
         </Route>
 
         <Route path="/my">
-          <MyActivities userLogin={loggedIn} userActivities={userActivities}/>
+          <MyActivities userLogin={loggedIn} userActivities={userActivities} completeActivity={completeActivity} />
         </Route>
 
         <Route path="/login">

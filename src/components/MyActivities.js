@@ -1,18 +1,6 @@
 import React from 'react'
-import service from '../services/services'
 
-const MyActivities = ({userLogin, userActivities}) => {
-
-    const completeActivity = (activity) => {
-        console.log("complete activity", activity);
-        service.completeActivity(activity)
-         .then(data => {
-             console.log("activity completed?", data);
-         })
-         .catch(error => {
-             console.log(error);
-         })
-    }
+const MyActivities = ({userLogin, userActivities, completeActivity}) => {
 
     if(userLogin) {
         return (

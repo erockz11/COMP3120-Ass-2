@@ -87,15 +87,19 @@ const App = () => {
 
   //function that adds the given activity to the list of logged in user's activities
   const addActivity = (activity) => {
-    service
-     .addActivity(activity, user)
-     .then(data => {
-         console.log("success", data);
-         let updateUserActivities = userActivities
-         updateUserActivities.push(data)
-         setUserActivities(updateUserActivities)
-         showNotification(`Successfully saved the activity "${activity.activity}" to My Activities`, "success", true)
-     })
+    if(userActivities.filter(a => a.activity === activity.activity)) {
+      showNotification(`The activity "${activity.activity}" already exists in My Activities`, "notice", true)
+    } else {
+        service
+        .addActivity(activity, user)
+        .then(data => {
+            console.log("success", data);
+            let updateUserActivities = userActivities
+            updateUserActivities.push(data)
+            setUserActivities(updateUserActivities)
+            showNotification(`Successfully saved the activity "${activity.activity}" to My Activities`, "success", true)
+        })
+    }
 }
 
   //function that marks a user's activity as completed and adds a score for it

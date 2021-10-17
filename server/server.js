@@ -151,16 +151,19 @@ app.post('/api/login', async (request, response) => {
 
 app.delete('/api/completeactivity', async (request, response) => {
     const sentActivity = request.body
+    console.log("sentActivity:", sentActivity);
 
-    let activityScore = calcScore(sentActivity.participants, sentActivity.accessibility, sentActivity.score)
-    console.log(activityScore)
+    let user = await User.findOne( {"username": sentActivity.username })
 
-    let user = await User.findOneAndUpdate( { "username": sentActivity.username }, { "score": activityScore }, { new: true } )
+    console.log("user:", user)
+
+    let activityScore = calcScore(sentActivity.participants, sentActivity.accessibility, user.score)
+    console.log("activityScore:", activityScore)
+
+    user = await User.findOneAndUpdate( { "username": sentActivity.username }, { $inc: { "score": activityScore } }, { new: true } )
     .catch(error => {
         response.status(401).end("could not find user",error)
     })
-
-    console.log(user.id)
 
     //const act = await Activity.findById( {"_id": id } ).then(result => {
         //console.log(result)

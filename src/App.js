@@ -85,6 +85,20 @@ const App = () => {
       })
   }
 
+  //function that adds the given activity to the list of logged in user's activities
+  const addActivity = (activity) => {
+    service
+     .addActivity(activity, user)
+     .then(data => {
+         console.log("success", data);
+         let updateUserActivities = userActivities
+         updateUserActivities.push(data)
+         setUserActivities(updateUserActivities)
+         showNotification(`Successfully saved the activity "${activity.activity}" to My Activities`, "success", true)
+     })
+}
+
+  //function that marks a user's activity as completed and adds a score for it
   const completeActivity = (activity) => {
     service.completeActivity(activity)
      .then(data => {
@@ -224,7 +238,7 @@ const App = () => {
             </form>
 
             <h2>You should try:</h2>
-            <Activity activity={ activity } loggedIn={ loggedIn } user={ user } userActivities={ userActivities } setUserActivities={ setUserActivities } showNotification={showNotification} />
+            <Activity activity={ activity } loggedIn={ loggedIn } addActivity={ addActivity } />
           </div>
         </Route>
 

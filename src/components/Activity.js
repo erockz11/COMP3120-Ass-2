@@ -1,12 +1,12 @@
 import React from 'react'
 import AddActivityButton from './AddActivityButton'
 
-const Activity = ({ activity, loggedIn, user, userActivities, setUserActivities, showNotification }) => {
+const Activity = ({ activity, loggedIn, addActivity }) => {
     if (activity) {
         return (
             <div>
                 { activity.activity }
-                <AddActivityButton activity={activity} loggedIn={loggedIn} user={user} userActivities={ userActivities } setUserActivities={ setUserActivities } showNotification={showNotification}/>
+                <AddActivityButton activity={activity} loggedIn={loggedIn} addActivity={ addActivity }/>
             </div>
         )
     } else {

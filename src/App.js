@@ -86,14 +86,13 @@ const App = () => {
   }
 
   const completeActivity = (activity) => {
-    console.log("complete activity", activity);
     service.completeActivity(activity)
      .then(data => {
-         console.log("activity completed?", data);
          setUserActivities(userActivities.filter(a => a.id !== activity.id))
+         showNotification(`Successfully marked "${activity.activity} as completed. You now have ${data.score} points.`, "success", true)
      })
      .catch(error => {
-         console.log(error);
+         showNotification(`An error has occurred: ${error}`, "error", true)
      })
 }
 

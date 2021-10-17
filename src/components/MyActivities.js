@@ -1,6 +1,18 @@
 import React from 'react'
+import service from '../services/services'
 
 const MyActivities = ({userLogin, userActivities}) => {
+
+    const completeActivity = (activity) => {
+        console.log("complete activity", activity);
+        service.completeActivity(activity)
+         .then(data => {
+             console.log("activity completed?", data);
+         })
+         .catch(error => {
+             console.log(error);
+         })
+    }
 
     if(userLogin) {
         return (
@@ -8,7 +20,9 @@ const MyActivities = ({userLogin, userActivities}) => {
                 <h1>My Activities</h1>
                 <ul>
                     {userActivities.map(activity =>
-                        <li key={activity.id}>{activity.activity}</li>)}
+                        <li key={activity.id}>
+                            {activity.activity} <button onClick={() => completeActivity(activity)}>Complete Activity</button>
+                        </li>)}
                 </ul>
             </div>
         )

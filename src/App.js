@@ -85,6 +85,35 @@ const App = () => {
       })
   }
 
+  //function that adds the given activity to the list of logged in user's activities
+  const addActivity = (activity) => {
+    if(userActivities.filter(a => a.activity === activity.activity)) {
+      showNotification(`The activity "${activity.activity}" already exists in My Activities`, "notice", true)
+    } else {
+        service
+        .addActivity(activity, user)
+        .then(data => {
+            console.log("success", data);
+            let updateUserActivities = userActivities
+            updateUserActivities.push(data)
+            setUserActivities(updateUserActivities)
+            showNotification(`Successfully saved the activity "${activity.activity}" to My Activities`, "success", true)
+        })
+    }
+}
+
+  //function that marks a user's activity as completed and adds a score for it
+  const completeActivity = (activity) => {
+    service.completeActivity(activity)
+     .then(data => {
+         setUserActivities(userActivities.filter(a => a.id !== activity.id))
+         showNotification(`Successfully marked "${activity.activity} as completed. You now have ${data.score} points.`, "success", true)
+     })
+     .catch(error => {
+         showNotification(`An error has occurred: ${error}`, "error", true)
+     })
+}
+
   //function that logs in a user
   const userLogin = (event) => {
     event.preventDefault()
@@ -160,7 +189,7 @@ const App = () => {
         </Route>
 
         <Route path="/my">
-          <MyActivities userLogin={loggedIn} userActivities={userActivities}/>
+          <MyActivities userLogin={loggedIn} userActivities={userActivities} completeActivity={completeActivity} />
         </Route>
 
         <Route path="/login">
@@ -213,7 +242,7 @@ const App = () => {
             </form>
 
             <h2>You should try:</h2>
-            <Activity activity={ activity } loggedIn={ loggedIn } user={ user } userActivities={ userActivities } setUserActivities={ setUserActivities } showNotification={showNotification} />
+            <Activity activity={ activity } loggedIn={ loggedIn } addActivity={ addActivity } />
           </div>
         </Route>
 

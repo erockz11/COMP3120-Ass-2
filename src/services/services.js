@@ -42,6 +42,11 @@ const register = (user) => {
                 .then(response => response.data)
 }
 
+const completeActivity = (activity) => {
+    return axios.delete(`http://localhost:3001/api/completeactivity`, {data: activity})
+                .then(response => response.data)
+}
+
 export default { 
     getRandom, 
     getType, 
@@ -50,5 +55,6 @@ export default {
     login, 
     addActivity, 
     getActivities,
-    register 
+    register,
+    completeActivity
 }

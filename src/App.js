@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import Activity from './components/Activity'
 import Leaderboard from './components/Leaderboard'
@@ -28,6 +28,18 @@ const App = () => {
   const [ userActivities, setUserActivities ] = useState([])
   const [ notificationMessage, setNotificationMessage ] = useState(null)
   const [ notificationType, setNotificationType ] = useState(null)
+
+  useEffect(() => {
+    console.log('effect')
+
+    service.getAllScores()
+      .then(data => {
+        console.log('promise fulfilled: ', data)
+      })
+      .catch(err => {
+        showNotification("Error getting data from server.", "error", true)
+      })
+  })
 
   //function that returns a random activity from the API
   const findRandom = (event) => {

@@ -113,12 +113,12 @@ const App = () => {
             showNotification(`Successfully saved the activity "${activity.activity}" to My Activities`, "success", true)
         })
     }
-}
+  }
 
   //function that marks a user's activity as completed and adds a score for it
   const completeActivity = (activity) => {
     service.completeActivity(activity)
-     .then(data => {
+      .then(data => {
         setUserActivities(userActivities.filter(a => a.id !== activity.id))
         service.getAllScores()
           .then(data => {
@@ -126,11 +126,11 @@ const App = () => {
           setLeaderboard(data)
         })
         showNotification(`Successfully marked "${activity.activity} as completed. You now have ${data.score} points.`, "success", true)
-     })
-     .catch(error => {
+      })
+      .catch(error => {
         showNotification(`An error has occurred: ${error}`, "error", true)
-     })
-}
+      })
+  }
 
   //function that logs in a user
   const userLogin = (event) => {

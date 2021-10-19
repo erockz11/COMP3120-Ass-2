@@ -19,4 +19,4 @@ Add activity endpoint integration:Jaime (done)\
 Complete activity endpoint integration: Jaime (serverside done), Josh (frontend done)\
 Testing: Jaime, Josh, Scott (done)\
 Leaderboard integration (backend/frontend): Scott (done)\
-Continue working on styling/UI: Josh (layout and displayed activity info), Sahana
+Continue working on styling/UI: Josh (layout and displayed activity info - done), Sahana

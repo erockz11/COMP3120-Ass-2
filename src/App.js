@@ -99,7 +99,7 @@ const App = () => {
 
   //function that adds the given activity to the list of logged in user's activities
   const addActivity = (activity) => {
-    if(userActivities.filter(a => a.activity === activity.activity).length > 0) {
+    if(userActivities.find(a => a.activity === activity.activity)) {
       showNotification(`The activity "${activity.activity}" already exists in My Activities`, "notice", true)
     } else {
         service

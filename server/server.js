@@ -24,7 +24,7 @@ app.get('/api/leaderboard', (request, response) => {
 
         //Scrubing sensitive data
         for(var i = 0; i < result.length; i++) {
-            newList.push({"username": result[i].username, "score": result[i].score})
+            newList.push({"username": result[i].username, "score": result[i].score, "id": result[i]._id})
         }
 
         //Sorts by score in descending order

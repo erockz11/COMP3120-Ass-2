@@ -12,7 +12,6 @@ import service from './services/services'
 const App = () => {
 
   const [ activity, setActivity ] = useState(null)
-
   const [ user, setUser ] = useState({
     "username": "",
     "password": ""
@@ -28,6 +27,7 @@ const App = () => {
   const [ userActivities, setUserActivities ] = useState([])
   const [ notificationMessage, setNotificationMessage ] = useState(null)
   const [ notificationType, setNotificationType ] = useState(null)
+  const [ leaderboard, setLeaderboard ] = useState(null)
 
   useEffect(() => {
     console.log('effect')
@@ -35,11 +35,12 @@ const App = () => {
     service.getAllScores()
       .then(data => {
         console.log('promise fulfilled: ', data)
+        setLeaderboard(data)
       })
       .catch(err => {
         showNotification("Error getting data from server.", "error", true)
       })
-  })
+  }, [])
 
   //function that returns a random activity from the API
   const findRandom = (event) => {
@@ -197,7 +198,7 @@ const App = () => {
       <Switch>
 
         <Route path="/leaderboard">
-          <Leaderboard/>
+          <Leaderboard leaderboard={leaderboard}/>
         </Route>
 
         <Route path="/my">

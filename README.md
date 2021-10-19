@@ -55,11 +55,13 @@ There will be a form with drop down tables that users can use to specify the par
 All components are located in the `components` folder.
 
 - `Activity.js`: Displays information for a single activity, passed as props.
+- `ActivityForm.js`: Displays forms for filtering activity generation.
 - `AddActivityButton.js`: Displays a button for a logged in user to save an activity to My Activities.
 - `Leaderboard.js`: Component that displays score rankings of users.
 - `LoginForm.js`: Form for users to login to their accounts.
 - `MyActivities.js`: Component that displays a user's current activities.
 - `Notification.js`: Component that displays a notification to the user.
+- `Rank.js`: Displays the given user's username and their score.
 - `RegisterForm.js`: Form for users to create an account if they do not already have one.
 - `UserDisplay.js`: When a user logs in successfully, their username is displayed by this component.
 

@@ -1,16 +1,13 @@
 import React from 'react'
+import Rank from './Rank.js'
 
 const Leaderboard = (props) => {
 
     return (
-        // placeholder for now
         <ul>
-            <h1>Activity Leaderboard</h1>
-            <p>[1] User 1 - FIRST PLACE</p>
-            <p>[2] User 4 - SECOND PLACE</p>
-            <p>[3] User 2 - THIRD PLACE</p>
-            <p>[4] User 5 - FOURTH PLACE</p>
-            <p>[5] User 4 - FIFTH PLACE</p>
+            {props.leaderboard.map(rank => {
+                return <Rank key={rank.id} username={rank.username} score={rank.score}/>;
+            })}
         </ul>
     )
 

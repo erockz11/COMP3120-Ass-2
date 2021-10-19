@@ -16,6 +16,24 @@ app.use(cors())
 const PORT = process.env.PORT || 3001;
 const SECRET = process.env.JWT_SECRET
 
+app.get('/api/leaderboard', (request, response) => {
+    User.find({})
+    .then(result => {
+
+        const newList = []
+
+        //Scrubing sensitive data
+        for(var i = 0; i < result.length; i++) {
+            newList.push({"username": result[i].username, "score": result[i].score, "id": result[i]._id})
+        }
+
+        //Sorts by score in descending order
+        newList.sort((a, b) => b.score - a.score)
+
+        console.log('new: ', newList)
+        response.json(newList)
+    })
+})
 
 //api endpoint to return all activities for a user
 app.get('/api/myactivities/:username', async (request,response) => {

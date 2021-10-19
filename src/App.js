@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import Activity from './components/Activity'
 import Leaderboard from './components/Leaderboard'
@@ -12,7 +12,6 @@ import service from './services/services'
 const App = () => {
 
   const [ activity, setActivity ] = useState(null)
-
   const [ user, setUser ] = useState({
     "username": "",
     "password": ""
@@ -28,6 +27,20 @@ const App = () => {
   const [ userActivities, setUserActivities ] = useState([])
   const [ notificationMessage, setNotificationMessage ] = useState(null)
   const [ notificationType, setNotificationType ] = useState(null)
+  const [ leaderboard, setLeaderboard ] = useState(null)
+
+  useEffect(() => {
+    console.log('effect')
+
+    service.getAllScores()
+      .then(data => {
+        console.log('promise fulfilled: ', data)
+        setLeaderboard(data)
+      })
+      .catch(err => {
+        showNotification("Error getting data from server.", "error", true)
+      })
+  }, [])
 
   //function that returns a random activity from the API
   const findRandom = (event) => {
@@ -87,7 +100,7 @@ const App = () => {
 
   //function that adds the given activity to the list of logged in user's activities
   const addActivity = (activity) => {
-    if(userActivities.filter(a => a.activity === activity.activity)) {
+    if(userActivities.find(a => a.activity === activity.activity)) {
       showNotification(`The activity "${activity.activity}" already exists in My Activities`, "notice", true)
     } else {
         service
@@ -100,19 +113,24 @@ const App = () => {
             showNotification(`Successfully saved the activity "${activity.activity}" to My Activities`, "success", true)
         })
     }
-}
+  }
 
   //function that marks a user's activity as completed and adds a score for it
   const completeActivity = (activity) => {
     service.completeActivity(activity)
-     .then(data => {
-         setUserActivities(userActivities.filter(a => a.id !== activity.id))
-         showNotification(`Successfully marked "${activity.activity} as completed. You now have ${data.score} points.`, "success", true)
-     })
-     .catch(error => {
-         showNotification(`An error has occurred: ${error}`, "error", true)
-     })
-}
+      .then(data => {
+        setUserActivities(userActivities.filter(a => a.id !== activity.id))
+        service.getAllScores()
+          .then(data => {
+          console.log('promise fulfilled: ', data)
+          setLeaderboard(data)
+        })
+        showNotification(`Successfully marked "${activity.activity} as completed. You now have ${data.score} points.`, "success", true)
+      })
+      .catch(error => {
+        showNotification(`An error has occurred: ${error}`, "error", true)
+      })
+  }
 
   //function that logs in a user
   const userLogin = (event) => {
@@ -185,16 +203,16 @@ const App = () => {
       <Switch>
 
         <Route path="/leaderboard">
-          <Leaderboard/>
+          <Leaderboard leaderboard={leaderboard}/>
         </Route>
 
         <Route path="/my">
-          <MyActivities userLogin={loggedIn} userActivities={userActivities} completeActivity={completeActivity} />
+          <MyActivities loggedIn={loggedIn} userActivities={userActivities} completeActivity={completeActivity} />
         </Route>
 
         <Route path="/login">
-          <LoginForm loginFn={userLogin} setUserFn={setUser} user={user} />
-          <RegisterForm setLoggedIn={setLoggedIn} newUser={newUser} setNewUser={setNewUser} setUser={setUser} setUserActivities={setUserActivities} />
+          <LoginForm loginFn={userLogin} setUserFn={setUser} user={user} loggedIn={loggedIn} />
+          <RegisterForm setLoggedIn={setLoggedIn} newUser={newUser} setNewUser={setNewUser} setUser={setUser} setUserActivities={setUserActivities} loggedIn={loggedIn} />
         </Route>
 
         <Route path="/">

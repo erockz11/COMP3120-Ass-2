@@ -47,6 +47,11 @@ const completeActivity = (activity) => {
                 .then(response => response.data)
 }
 
+const getAllScores = () => {
+    return axios.get('http://localhost:3001/api/leaderboard')
+                .then(response => response.data)
+}
+
 export default { 
     getRandom, 
     getType, 
@@ -56,5 +61,6 @@ export default {
     addActivity, 
     getActivities,
     register,
-    completeActivity
+    completeActivity,
+    getAllScores
 }

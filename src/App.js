@@ -7,6 +7,7 @@ import RegisterForm from './components/RegisterForm'
 import UserDisplay from './components/UserDisplay'
 import MyActivities from './components/MyActivities'
 import Notification from './components/Notification'
+import ActivityForm from './components/ActivityForm'
 import service from './services/services'
 
 const App = () => {
@@ -220,44 +221,7 @@ const App = () => {
             <h1>Bored?</h1>
             <h2>Find something to do:</h2>
 
-            <form>
-              <fieldset>
-                <label htmlFor="type">Type</label> <br />
-                <select onChange={(e) => setActivityType(e.target.value)} name="type">
-                  <option value="education">Education</option>
-                  <option value="recreational">Recreational</option>
-                  <option value="social">Social</option>
-                  <option value="DIY">DIY</option>
-                  <option value="charity">Charity</option>
-                  <option value="cooking">Cooking</option>
-                  <option value="relaxation">Relaxation</option>
-                  <option value="music">Music</option>
-                  <option value="busywork">Busywork</option>
-                </select>
-              </fieldset>
-
-              {/* activities.json from API currently doesn't have any activities with more than 5 participants */}
-              {/* change this implementation? */}
-              <fieldset>
-                <label htmlFor="participants">Participants</label> <br />
-                1<input style={{marginRight: '15px', marginLeft: '3px'}} type="radio" name="participants" value="1" onChange={(e) => setActivityParticipants(e.target.value)} />
-                2<input style={{marginRight: '15px', marginLeft: '3px'}} type="radio" name="participants" value="2" onChange={(e) => setActivityParticipants(e.target.value)} />
-                3<input style={{marginRight: '15px', marginLeft: '3px'}} type="radio" name="participants" value="3" onChange={(e) => setActivityParticipants(e.target.value)} />
-                4<input style={{marginRight: '15px', marginLeft: '3px'}} type="radio" name="participants" value="4" onChange={(e) => setActivityParticipants(e.target.value)} />
-                5<input style={{marginRight: '15px', marginLeft: '3px'}} type="radio" name="participants" value="5" onChange={(e) => setActivityParticipants(e.target.value)} />
-              </fieldset>
-
-              {/* API uses [0.0 - 1.0] */}
-              <fieldset>
-                <label htmlFor="price">Price Range</label> <br />
-                <input type="range" name="price" min="0.0" max="1.0" step="0.1" onChange={(e) => setActivityPrice(e.target.value)} />
-              </fieldset>
-
-              <button className="button-primary" onClick={ findActivityByType } style={{marginRight: '10px'}}>Show me an activity (by type)</button>
-              <button className="button-primary" onClick={ findActivityByParticipants } style={{marginRight: '10px'}}>Show me an activity (by participants)</button>
-              <button className="button-primary" onClick={ findActivityByPrice } style={{marginRight: '10px'}}>Show me an activity (by price)</button>
-              <button className="button-primary" onClick={ findRandom } style={{marginRight: '10px'}}>Show me a random activity</button>
-            </form>
+            <ActivityForm setActivityType={setActivityType} setActivityParticipants={setActivityParticipants} setActivityPrice={setActivityPrice} findActivityByParticipants={findActivityByParticipants} findActivityByPrice={findActivityByPrice} findActivityByType={findActivityByType} findRandom={findRandom} />
 
             <h2>You should try:</h2>
             <Activity activity={ activity } loggedIn={ loggedIn } addActivity={ addActivity } />

@@ -41,3 +41,7 @@ h1 {
   color: #574202;
   border: 1px solid #ecdaa5;
 }
+
+.logout:hover {
+  cursor: pointer;
+}

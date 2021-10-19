@@ -16,8 +16,7 @@ const UserDisplay = ({user, loggedIn, logoutFn}) => {
     if(loggedIn) {
         return (
             <div>
-                <h3>Logged In as: {user.username}</h3>
-                <button onClick={handleClick}>Logout</button>
+                Logged In as: {user.username} | <a className="logout" onClick={handleClick}>Logout</a>
             </div>
         )
     } else {

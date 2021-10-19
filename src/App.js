@@ -213,7 +213,7 @@ const App = () => {
 
         <Route path="/login">
           <LoginForm loginFn={userLogin} setUserFn={setUser} user={user} loggedIn={loggedIn} />
-          <RegisterForm setLoggedIn={setLoggedIn} newUser={newUser} setNewUser={setNewUser} setUser={setUser} setUserActivities={setUserActivities} loggedIn={loggedIn} />
+          <RegisterForm setLoggedIn={setLoggedIn} newUser={newUser} setNewUser={setNewUser} setUser={setUser} setUserActivities={setUserActivities} loggedIn={loggedIn} showNotification={showNotification}/>
         </Route>
 
         <Route path="/">

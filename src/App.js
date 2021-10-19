@@ -119,11 +119,16 @@ const App = () => {
   const completeActivity = (activity) => {
     service.completeActivity(activity)
      .then(data => {
-         setUserActivities(userActivities.filter(a => a.id !== activity.id))
-         showNotification(`Successfully marked "${activity.activity} as completed. You now have ${data.score} points.`, "success", true)
+        setUserActivities(userActivities.filter(a => a.id !== activity.id))
+        service.getAllScores()
+          .then(data => {
+          console.log('promise fulfilled: ', data)
+          setLeaderboard(data)
+        })
+        showNotification(`Successfully marked "${activity.activity} as completed. You now have ${data.score} points.`, "success", true)
      })
      .catch(error => {
-         showNotification(`An error has occurred: ${error}`, "error", true)
+        showNotification(`An error has occurred: ${error}`, "error", true)
      })
 }
 

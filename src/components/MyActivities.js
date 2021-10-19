@@ -1,8 +1,8 @@
 import React from 'react'
 
-const MyActivities = ({userLogin, userActivities, completeActivity}) => {
+const MyActivities = ({loggedIn, userActivities, completeActivity}) => {
 
-    if(userLogin) {
+    if(loggedIn) {
         return (
             <div>
                 <h1>My Activities</h1>

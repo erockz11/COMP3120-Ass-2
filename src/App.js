@@ -202,12 +202,12 @@ const App = () => {
         </Route>
 
         <Route path="/my">
-          <MyActivities userLogin={loggedIn} userActivities={userActivities} completeActivity={completeActivity} />
+          <MyActivities loggedIn={loggedIn} userActivities={userActivities} completeActivity={completeActivity} />
         </Route>
 
         <Route path="/login">
-          <LoginForm loginFn={userLogin} setUserFn={setUser} user={user} />
-          <RegisterForm setLoggedIn={setLoggedIn} newUser={newUser} setNewUser={setNewUser} setUser={setUser} setUserActivities={setUserActivities} />
+          <LoginForm loginFn={userLogin} setUserFn={setUser} user={user} loggedIn={loggedIn} />
+          <RegisterForm setLoggedIn={setLoggedIn} newUser={newUser} setNewUser={setNewUser} setUser={setUser} setUserActivities={setUserActivities} loggedIn={loggedIn} />
         </Route>
 
         <Route path="/">

@@ -191,10 +191,10 @@ const App = () => {
     <div>
       <Router>
       <div>
-        <Link to="/" style={{ textDecoration: 'none', padding: '10px', float: 'left' }}> Home</Link>
-        <Link to="/leaderboard" style={{ textDecoration: 'none', padding: '10px', float: 'left' }}>Leaderboard</Link>
-        <Link to="/my" style={{ textDecoration: 'none', padding: '10px', float: 'left' }}>My Activities</Link>
-        <Link to="/login" style={{ textDecoration: 'none', padding: '10px', float: 'left' }}>Log In/Register</Link>
+        <Link class="button" to="/" style={{ float: 'left', marginRight: '5px'}}> Home</Link>
+        <Link class="button" to="/leaderboard" style={{ float: 'left', marginRight: '5px' }}>Leaderboard</Link>
+        <Link class="button" to="/my" style={{ float: 'left', marginRight: '5px' }}>My Activities</Link>
+        <Link class="button" to="/login" style={{ float: 'left', marginRight: '5px' }}>Log In/Register</Link>
       </div>
 
       <div>

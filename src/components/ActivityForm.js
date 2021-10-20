@@ -2,9 +2,9 @@ import React from 'react'
 
 const ActivityForm = ({ setActivityType, setActivityParticipants, setActivityPrice, findActivityByParticipants, findActivityByPrice, findActivityByType, findRandom }) => {
     return (
-        <div className="container">
+        <div className="container-fluid" style={{marginBottom: '50px'}}>
             <form>
-                <div className="row">
+                <div className="row" style={{marginBottom: '25px'}}>
                     <div className="four columns">
                         <label htmlFor="type">Type</label> <br />
                         <select onChange={(e) => setActivityType(e.target.value)} name="type">
@@ -40,13 +40,10 @@ const ActivityForm = ({ setActivityType, setActivityParticipants, setActivityPri
                 </div>
 
                 <div className="row">
-                    <div className="four columns"><button className="button-primary" onClick={ findActivityByType } style={{marginRight: '10px'}}>Show me an activity (by type)</button></div>
-                    <div className="four columns"><button className="button-primary" onClick={ findActivityByParticipants } style={{marginRight: '10px'}}>Show me an activity (by participants)</button></div>
-                    <div className="four columns"><button className="button-primary" onClick={ findActivityByPrice } style={{marginRight: '10px'}}>Show me an activity (by price)</button></div>
-                </div>
-
-                <div className="row">
-                    <button className="button-primary" onClick={ findRandom } style={{marginRight: '10px'}}>... or show me a random activity</button>
+                    <div className="three columns"><button className="button-primary" onClick={ findActivityByType }>Show me an activity (by type)</button></div>
+                    <div className="three columns"><button className="button-primary" onClick={ findActivityByParticipants }>Show me an activity (by participants)</button></div>
+                    <div className="three columns"><button className="button-primary" onClick={ findActivityByPrice }>Show me an activity (by price)</button></div>
+                    <div className="three columns"><button className="button-primary" onClick={ findRandom } style={{marginRight: '10px'}}>... or show me a random activity</button></div>
                 </div>
             </form>
         </div>

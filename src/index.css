@@ -1,13 +1,21 @@
 body {
   margin: 25px;
   text-align: center;
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Noto Sans Mono", sans-serif;
 }
 
 h1 {
-  font-weight: bold;
   margin-top: 10px;
-  padding-top: 50px;
+  padding: 60px 60px 0px;
+}
+
+h2 {
+  margin-top: 25px;
+  margin-bottom: 40px;
+}
+
+img {
+  float: right;
 }
 
 /* global styling for all variants of the Notification component */

@@ -126,7 +126,7 @@ const App = () => {
           console.log('promise fulfilled: ', data)
           setLeaderboard(data)
         })
-        showNotification(`Successfully marked "${activity.activity} as completed. You now have ${data.score} points.`, "success", true)
+        showNotification(`Successfully marked "${activity.activity}" as completed. You now have ${data.score} points.`, "success", true)
       })
       .catch(error => {
         showNotification(`An error has occurred: ${error}`, "error", true)

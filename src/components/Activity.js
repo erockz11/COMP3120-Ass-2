@@ -4,6 +4,9 @@ import AddActivityButton from './AddActivityButton'
 const Activity = ({ activity, loggedIn, addActivity }) => {
     //small helper function to return text as sentence/title case, as activity types are given in lowercase
     const capitalise = (text) => {
+        if (text == "diy") {
+            return "DIY"
+        }
         return text.charAt(0).toUpperCase() + text.substr(1).toLowerCase()
     }
 

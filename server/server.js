@@ -28,24 +28,30 @@ app.get('/api/leaderboard', (request, response) => {
         }
 
         //Sorts by score in descending order
-        newList.sort((a, b) => b.score - a.score)
+        newList = sortLB(newList)
 
         console.log('new: ', newList)
         response.json(newList)
     })
 })
 
+//function to sort a list of user objects in descending order based on their score
+const sortLB = (newList) => {
+    newList.sort((a, b) => b.score - a.score)
+    return newList
+}
+
 //api endpoint to return all activities for a user
 app.get('/api/myactivities/:username', async (request,response) => {
     const user = request.params.username
-    console.log(user)
+    //console.log(user)
     let isUser = await getUser(user).catch(error => {
-        console.log(error)
+        //console.log(error)
     })
-    console.log(isUser)
+    //console.log(isUser)
     if(isUser) {
         let userActivities = await Activity.find({"username": isUser.username})
-        console.log(userActivities)
+        //console.log(userActivities)
         response.json(userActivities)
     } else {
         response.status(401).end("Unauthorized response")
@@ -206,4 +212,7 @@ const calcScore = (participants, accessibility, score) => {
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
 })
+
+module.exports = app
+
 

@@ -6,7 +6,7 @@ const MyActivities = ({loggedIn, userActivities, completeActivity}) => {
         return (
             <div>
                 <h1>My Activities</h1>
-                <ul>
+                <ul style={{listStyleType: 'none'}}>
                     {userActivities.map(activity =>
                         <li key={activity.id}>
                             {activity.activity} <button onClick={() => completeActivity(activity)}>Complete Activity</button>
@@ -17,7 +17,7 @@ const MyActivities = ({loggedIn, userActivities, completeActivity}) => {
     } else {
         return (
             <div>
-                <h3 style={{padding: '50px'}} >Not Logged In</h3>
+                <h3 style={{padding: '300px'}} >Not Logged In</h3>
             </div>
         )
     }

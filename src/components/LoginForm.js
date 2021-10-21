@@ -35,12 +35,13 @@ const LoginForm = ({loginFn, setUserFn, user, loggedIn}) => {
 
                 <form onSubmit={loginFn}>
                     <div className="login-form-container">
-                        <label htmlFor="username"><b>Username</b></label>
-                        <input type="text" placeholder="Enter Username" name="username" onChange={handleUsername}></input>
+                        <fieldset>
+                            <label htmlFor="username"><b>Username</b></label>
+                            <input type="text" placeholder="Enter Username" name="username" onChange={handleUsername}></input>
 
-                        <label htmlFor="pword"><b>Password</b></label>
-                        <input type="password" placeholder="Enter Password" name="pword" onChange={handlePassword}></input>
-
+                            <label htmlFor="pword"><b>Password</b></label>
+                            <input type="password" placeholder="Enter Password" name="pword" onChange={handlePassword}></input>
+                        </fieldset>
                         <button style={{marginLeft: '5px'}} >Login</button>
                     </div>
                 </form>

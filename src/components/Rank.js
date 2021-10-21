@@ -4,7 +4,7 @@ const Rank = (props) => {
 
     return(
         <div>
-            <li>{props.username} {props.score}</li>
+            <li><b>{props.username}</b>: {props.score} points</li>
         </div>
     )
 

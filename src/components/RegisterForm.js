@@ -2,7 +2,7 @@ import React from 'react'
 import Services from '../services/services'
 
 //component to allow the user to login using a username and password
-const RegisterForm = ({setLoggedIn, newUser, setNewUser, setUser, setUserActivities, loggedIn}) => {
+const RegisterForm = ({setLoggedIn, newUser, setNewUser, setUser, setUserActivities, loggedIn, showNotification}) => {
 
     const userRegister = (event) => {
         event.preventDefault()
@@ -19,8 +19,9 @@ const RegisterForm = ({setLoggedIn, newUser, setNewUser, setUser, setUserActivit
             setLoggedIn(true)
             setUser(registeredUser)
             setUserActivities([])
+            showNotification(`Username ${registeredUser.username} has successfully been created`, "success", true)
         }).catch(error => {
-            console.log(error)
+            showNotification(`An error occurred: ${error}`, "error", true)
         })
 
 
@@ -60,12 +61,13 @@ const RegisterForm = ({setLoggedIn, newUser, setNewUser, setUser, setUserActivit
                 <form onSubmit={userRegister}>
     
                     <div className="reg-form-container">
-                        <label htmlFor="makeUser"><b>Register Username</b></label>
-                        <input type="text" placeholder="Create Your Username" name="makeUser" onChange={handleUsername}></input>
-    
-                        <label htmlFor="makepword"><b>Register Password</b></label>
-                        <input type="password" placeholder="Create Your Password" name="makepword" onChange={handlePassword}></input>
-    
+                        <fieldset>
+                            <label htmlFor="makeUser"><b>Register Username</b></label>
+                            <input type="text" placeholder="Create Your Username" name="makeUser" onChange={handleUsername}></input>
+        
+                            <label htmlFor="makepword"><b>Register Password</b></label>
+                            <input type="password" placeholder="Create Your Password" name="makepword" onChange={handlePassword}></input>
+                        </fieldset>
                         <button style={{marginLeft: '5px'}} >Register</button>
                     </div>
     

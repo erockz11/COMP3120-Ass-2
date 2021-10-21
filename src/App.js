@@ -28,7 +28,7 @@ const App = () => {
   const [ userActivities, setUserActivities ] = useState([])
   const [ notificationMessage, setNotificationMessage ] = useState(null)
   const [ notificationType, setNotificationType ] = useState(null)
-  const [ leaderboard, setLeaderboard ] = useState(null)
+  const [ leaderboard, setLeaderboard ] = useState([])
 
   useEffect(() => {
     console.log('effect')
@@ -37,6 +37,7 @@ const App = () => {
       .then(data => {
         console.log('promise fulfilled: ', data)
         setLeaderboard(data)
+        console.log(leaderboard)
       })
       .catch(err => {
         showNotification("Error getting data from server.", "error", true)
@@ -137,7 +138,7 @@ const App = () => {
   const userLogin = (event) => {
     event.preventDefault()
     console.log("logging in user")
-
+    console.group(user)
     service.login(user)
     .then(data => {
       console.log("success:", data)

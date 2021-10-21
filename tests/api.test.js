@@ -71,12 +71,12 @@ const initialActivities = [
   const initialUsers = [
       {
           "username": "test1",
-          "password": "0000",
+          "password": "$2b$10$RI3bb8TpIrc0DuUFNiVPd.zxY./GMBPDL83IcZQ62v9dEYkWMvB0S",
           "score": 0
       },
       {
         "username": "test2",
-        "password": "0001",
+        "password": "$2b$10$1177nPzSQSL2FyCco4U0tedQYdLcAp0HKnFx0gZgE8p.3P/TEsZyG",
         "score": 0
     }
   ]

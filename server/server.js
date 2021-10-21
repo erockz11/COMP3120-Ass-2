@@ -20,7 +20,7 @@ app.get('/api/leaderboard', (request, response) => {
     User.find({})
     .then(result => {
 
-        const newList = []
+        let newList = []
 
         //Scrubing sensitive data
         for(var i = 0; i < result.length; i++) {
@@ -32,6 +32,8 @@ app.get('/api/leaderboard', (request, response) => {
 
         console.log('new: ', newList)
         response.json(newList)
+    }).catch(error => {
+        console.log(error)
     })
 })
 
@@ -135,6 +137,7 @@ app.post('/api/addactivity/:username', async (request,response) => {
 //returns a User record from the db, null if not found
 async function getUser(user) {
     let checkIfUser = await User.findOne({"username": user}).then(result => {
+        console.log("check this")
         console.log(result)
         console.log()
         return result
@@ -145,15 +148,18 @@ async function getUser(user) {
 //api endpoint to handle login with {username, password}
 app.post('/api/login', async (request, response) => {
 
-    const {username, password} = request.body
-
+    let {username, password} = request.body
+    console.log(username)
 
     let user = await getUser(username).catch(error => {
         console.log(error)
     })
-    console.log(user)
+    console.log("My user is:")
+    console.log(user.password)
+    console.log(password)
 
     if(!user) {
+        console.log("1st reject")
         return response.status(401).json({error: "invalid username or password"})
     }
   
@@ -169,6 +175,7 @@ app.post('/api/login', async (request, response) => {
         return response.status(200).json({token, username: user.username})
         // return response.status(200).json({username: user.username})
     } else {
+        console.log("2nd rejection")
         return response.status(401).json({error: "invalid username or password"})
     }
 })

@@ -20,3 +20,10 @@ Complete activity endpoint integration: Jaime (serverside done), Josh (frontend 
 Testing: Jaime, Josh, Scott (done)\
 Leaderboard integration (backend/frontend): Scott (done)\
 Continue working on styling/UI: Josh (layout and displayed activity info - done), Sahana
+
+# Week 12 todo
+Refactor server: Jaime (todo)\
+Add more tests: Jaime/Scott/Josh/Sahana (todo)\
+Polish Frontend: (todo)\
+Polish style: (todo)\
+Documentation: Jaime/Scott/Josh/Sahana

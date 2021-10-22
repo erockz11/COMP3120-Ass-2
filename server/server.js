@@ -211,6 +211,16 @@ app.delete('/api/completeactivity', async (request, response) => {
     response.status(200).json( { "username": user.username, "score": user.score } )
 })
 
+app.delete('/api/myactivities/:id', async (request, response) => {
+    await Activity.findByIdAndDelete(request.params.id)
+    .then(result => {
+        response.status(204).end()
+    })
+    .catch(error => {
+        response.status(401).end("could not find activity", error)
+    })
+})
+
 const calcScore = (participants, accessibility, score) => {
     score += (accessibility * 10) + participants
     return score

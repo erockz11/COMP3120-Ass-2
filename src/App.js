@@ -9,6 +9,7 @@ import MyActivities from './components/MyActivities'
 import Notification from './components/Notification'
 import ActivityForm from './components/ActivityForm'
 import service from './services/services'
+import services from './services/services'
 
 const App = () => {
 
@@ -134,6 +135,20 @@ const App = () => {
       })
   }
 
+  const deleteActivity = (activity) => {
+    if (window.confirm(`Are you sure you want to delete "${activity.activity}"?`)) {
+      services.deleteActivity(activity)
+      .then(data => {
+        setUserActivities(userActivities.filter(a => a.id !== activity.id))
+        showNotification(`Successfully deleted "${activity.activity}" from My Activities.`, "success", true)
+      })
+      .catch(error => {
+        showNotification(`An error has occurred: ${error}`, "error", true)
+      })
+    }
+    
+  }
+
   //function that logs in a user
   const userLogin = (event) => {
     event.preventDefault()
@@ -209,7 +224,7 @@ const App = () => {
         </Route>
 
         <Route path="/my">
-          <MyActivities loggedIn={loggedIn} userActivities={userActivities} completeActivity={completeActivity} />
+          <MyActivities loggedIn={loggedIn} userActivities={userActivities} completeActivity={completeActivity} deleteActivity={deleteActivity}/>
         </Route>
 
         <Route path="/login">

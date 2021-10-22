@@ -47,6 +47,11 @@ const completeActivity = (activity) => {
                 .then(response => response.data)
 }
 
+const deleteActivity = (activity) => {
+    return axios.delete(`http://localhost:3001/api/myactivities/${activity.id}`)
+                .then(response => response.data)
+}
+
 const getAllScores = () => {
     return axios.get('http://localhost:3001/api/leaderboard')
                 .then(response => response.data)
@@ -62,5 +67,6 @@ export default {
     getActivities,
     register,
     completeActivity,
-    getAllScores
+    getAllScores,
+    deleteActivity
 }

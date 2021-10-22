@@ -1,6 +1,6 @@
 import React from 'react'
 
-const MyActivities = ({loggedIn, userActivities, completeActivity}) => {
+const MyActivities = ({loggedIn, userActivities, completeActivity, deleteActivity}) => {
 
     if(loggedIn) {
         return (
@@ -9,7 +9,8 @@ const MyActivities = ({loggedIn, userActivities, completeActivity}) => {
                 <ul style={{listStyleType: 'none'}}>
                     {userActivities.map(activity =>
                         <li key={activity.id}>
-                            {activity.activity} <button onClick={() => completeActivity(activity)}>Complete Activity</button>
+                            {activity.activity} <button onClick={() => completeActivity(activity)}>Complete Activity</button> 
+                            <button style={{borderColor: '#ff0000'}}onClick={() => deleteActivity(activity)}>Delete Activity</button>
                         </li>)}
                 </ul>
             </div>

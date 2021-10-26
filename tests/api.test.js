@@ -101,11 +101,47 @@ const initialActivities = [
   })
 
 test('activities are returned as json', async () => {
-    await api
+    const resp = await api
       .get('/api/myactivities/test1')
       .expect(200)
       .expect('Content-Type', /application\/json/)
+
+      const act = resp.body
+
+      expect(act[0].activity).toBe("Learn Express.js")
+
   }, 100000)
+
+test('leaderboard info returned', async () => {
+    const lb = await api
+      .get('/api/leaderboard')
+      .expect(200)
+      .expect('Content-Type', /application\/json/)
+    const len = lb.body.length
+
+    expect(len).toBe(2)
+})
+
+test('registering a new user works', async () => {
+    const regiUser = { "username": "test3", "password": "0002", "score": 0 }
+    const regi = await api
+      .post('/api/register')
+      .send(regiUser)
+      .expect(200)
+      .expect('Content-Type', /application\/json/)
+
+      const uname = regi.body
+      console.log("uname?",uname)
+
+      expect(uname.username).toBe("test3")
+
+    const lb = await api
+      .get('/api/leaderboard')
+
+    const len = lb.body.length
+
+    expect(len).toBe(3)
+})
 
 //afterAll(() => {
 //    mongoose.connection.close()

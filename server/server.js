@@ -224,6 +224,7 @@ app.delete('/api/myactivities/:id', async (request, response) => {
     })
 })
 
+//function that calculates score to be added
 const calcScore = (participants, accessibility, score) => {
     score += (accessibility * 10) + participants
     return score

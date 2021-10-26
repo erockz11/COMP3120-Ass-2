@@ -110,3 +110,4 @@ Josh: Frontend, Backend, Styling\
 Sahana: Frontend, Styling\
 Scott: Frontend, Backend
 
+Communication was done through a Discord group chat. Members were able to pick which tasks on `TODO.md` they wanted to work on and were encouraged to speak up if they felt like they shouldered too much of a workload. Given that there were no complaints about workload, when members were asked about team contribution, everyone felt that everyone had contributed equally and fairly to the project.

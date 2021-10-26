@@ -118,7 +118,7 @@ const App = () => {
 
   //function that marks a user's activity as completed and adds a score for it
   const completeActivity = (activity) => {
-    service.completeActivity(activity)
+    service.completeActivity(activity, user)
       .then(data => {
         setUserActivities(userActivities.filter(a => a.id !== activity.id))
         service.getAllScores()
@@ -136,7 +136,7 @@ const App = () => {
   //function that deletes a user's saved activity
   const deleteActivity = (activity) => {
     if (window.confirm(`Are you sure you want to delete "${activity.activity}"?`)) {
-      services.deleteActivity(activity)
+      services.deleteActivity(activity, user)
       .then(data => {
         setUserActivities(userActivities.filter(a => a.id !== activity.id))
         showNotification(`Successfully deleted "${activity.activity}" from My Activities.`, "success", true)

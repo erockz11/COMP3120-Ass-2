@@ -33,12 +33,14 @@ const login = ({username, password}) => {
 
 //add current activity
 const addActivity = (activity, user) => {
-    return axios.post(`http://localhost:3001/api/addactivity/${user.username}`, activity)
+    const config = {headers: {Authorization: "Bearer " + user.token}}
+    return axios.post(`http://localhost:3001/api/addactivity/${user.username}`, activity, config)
                 .then(response => response.data)
 }
 
 //get given user's activities
-const getActivities = ({username}) => {
+const getActivities = ({username}, user) => {
+    // const config = {headers: {Authorization: "Bearer " + user.token}}
     return axios.get(`http://localhost:3001/api/myactivities/${username}`)
                 .then(response => response.data)
 }
@@ -50,14 +52,16 @@ const register = (user) => {
 }
 
 //complete clicked activity
-const completeActivity = (activity) => {
-    return axios.delete(`http://localhost:3001/api/completeactivity`, {data: activity})
+const completeActivity = (activity, user) => {
+    const config = {headers: {Authorization: "Bearer " + user.token}}
+    return axios.delete(`http://localhost:3001/api/completeactivity`, {data: activity}, config)
                 .then(response => response.data)
 }
 
 //delete clicked activity
-const deleteActivity = (activity) => {
-    return axios.delete(`http://localhost:3001/api/myactivities/${activity.id}`)
+const deleteActivity = (activity, user) => {
+    const config = {headers: {Authorization: "Bearer " + user.token}}
+    return axios.delete(`http://localhost:3001/api/myactivities/${activity.id}`, config)
                 .then(response => response.data)
 }
 

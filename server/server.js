@@ -44,6 +44,15 @@ const sortLB = (newList) => {
     return newList
 }
 
+const getTokenFrom = request => {
+    const authorization = request.get('authorization')
+    console.log("authorisation: ",authorization)
+    if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
+      return authorization.substring(7)
+    }
+    return null
+  }
+
 //api endpoint to return all activities for a user
 app.get('/api/myactivities/:username', async (request,response) => {
     const user = request.params.username
@@ -112,6 +121,13 @@ app.post('/api/addactivity/:username', async (request,response) => {
     const sentActivity = request.body
 
     if(isUser){
+
+        const token = getTokenFrom(request)
+        const decodedToken = jwt.verify(token, SECRET)
+        if (!token || !decodedToken.id) {
+            return response.status(401).json({ error: 'token missing or invalid' })
+        }
+
         //create a new activity record
         const newActivity = new Activity({
             "activity": sentActivity.activity,
@@ -189,6 +205,14 @@ app.delete('/api/completeactivity', async (request, response) => {
     let user = await User.findOne( {"username": sentActivity.username })
 
     console.log("user:", user)
+
+    const token = getTokenFrom(request)
+    console.log('request: ',request.body)
+    console.log('token: ',token)
+    const decodedToken = jwt.verify(token, SECRET)
+    if (!token || !decodedToken.id) {
+        return response.status(401).json({ error: 'token missing or invalid' })
+    }
 
     let activityScore = calcScore(sentActivity.participants, sentActivity.accessibility, user.score)
     console.log("activityScore:", activityScore)

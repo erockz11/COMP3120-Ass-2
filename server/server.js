@@ -221,7 +221,7 @@ app.post('/api/completeactivity', async (request, response) => {
     let activityScore = calcScore(sentActivity.participants, sentActivity.accessibility, user.score)
     console.log("activityScore:", activityScore)
 
-    user = await User.findOneAndUpdate( { "username": sentActivity.username }, { $inc: { "score": activityScore } }, { new: true } )
+    user = await User.findOneAndUpdate( { "username": sentActivity.username }, { $set: { "score": activityScore } }, { new: true } )
     .catch(error => {
         response.status(401).end("could not find user",error)
     })
@@ -256,6 +256,9 @@ app.delete('/api/myactivities/:id', async (request, response) => {
 
 //function that calculates score to be added
 const calcScore = (participants, accessibility, score) => {
+    console.log("accessibility is:",accessibility)
+    console.log("participants is:",participants)
+    console.log("score is:",score)
     score += (accessibility * 10) + participants
     return score
 }

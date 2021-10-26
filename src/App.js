@@ -119,17 +119,17 @@ const App = () => {
   //function that marks a user's activity as completed and adds a score for it
   const completeActivity = (activity) => {
     service.completeActivity(activity, user)
-      .then(data => {
-        console.log(data)
+      .then(data1 => {
+        console.log("what is returned?",data1)
         let updatedActivities = userActivities.filter(a => a.id !== activity.id)
-        updatedActivities.push(data.activity)
+        updatedActivities.push(data1.activity)
         setUserActivities(updatedActivities)
         service.getAllScores()
-          .then(data => {
-          console.log('promise fulfilled: ', data)
-          setLeaderboard(data)
+          .then(data2 => {
+          console.log('promise fulfilled: ', data2)
+          setLeaderboard(data2)
         })
-        showNotification(`Successfully marked "${activity.activity}" as completed. You now have ${data.score} points.`, "success", true)
+        showNotification(`Successfully marked "${activity.activity}" as completed. You now have ${data1.user.score} points.`, "success", true)
       })
       .catch(error => {
         showNotification(`An error has occurred: ${error}`, "error", true)

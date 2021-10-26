@@ -54,7 +54,7 @@ const register = (user) => {
 //complete clicked activity
 const completeActivity = (activity, user) => {
     const config = {headers: {Authorization: "Bearer " + user.token}}
-    return axios.delete(`http://localhost:3001/api/completeactivity`, {data: activity}, config)
+    return axios.post(`http://localhost:3001/api/completeactivity`, {data: activity}, config)
                 .then(response => response.data)
 }
 

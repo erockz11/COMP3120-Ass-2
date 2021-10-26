@@ -19,7 +19,8 @@ const activitySchema = new mongoose.Schema({
     type: String,
     participants: Number,
     price: Number,
-    username: String
+    username: String,
+    completed: Boolean
 })
 
 

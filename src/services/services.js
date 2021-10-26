@@ -42,12 +42,12 @@ const register = (user) => {
                 .then(response => response.data)
 }
 
-const completeActivity = (activity) => {
-    return axios.delete(`http://localhost:3001/api/completeactivity`, {data: activity})
+const completeActivity = (activity) => { //changed to post
+    return axios.post(`http://localhost:3001/api/completeactivity`, {data: activity})
                 .then(response => response.data)
 }
 
-const deleteActivity = (activity) => {
+const deleteActivity = (activity) => { 
     return axios.delete(`http://localhost:3001/api/myactivities/${activity.id}`)
                 .then(response => response.data)
 }

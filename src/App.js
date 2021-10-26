@@ -122,7 +122,10 @@ const App = () => {
   const completeActivity = (activity) => {
     service.completeActivity(activity)
       .then(data => {
-        setUserActivities(userActivities.filter(a => a.id !== activity.id))
+        console.log(data)
+        let updatedActivities = userActivities.filter(a => a.id !== activity.id)
+        updatedActivities.push(data.activity)
+        setUserActivities(updatedActivities)
         service.getAllScores()
           .then(data => {
           console.log('promise fulfilled: ', data)

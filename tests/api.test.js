@@ -1,6 +1,6 @@
 const mongoose = require('mongoose') 
 const supertest = require('supertest')
-const app = require('../server/server')
+const app = require('../server/app')
 const Activity = require("../server/models/activities")
 const User = require("../server/models/users")
 
@@ -19,7 +19,8 @@ const initialActivities = [
         "participants": 1,
         "price": 0.0,
         "username": "test1",
-        "id": 0
+        "id": 0,
+        "completed": false
     },
     {
         "activity": "Bake something you've never tried before",
@@ -28,7 +29,8 @@ const initialActivities = [
         "participants": 1,
         "price": 0.0,
         "username": "test1",
-        "id": 1
+        "id": 1,
+        "completed": false
     },
     {
         "activity": "Learn how to play a new sport",
@@ -37,7 +39,8 @@ const initialActivities = [
         "participants": 1,
         "price": 0.0,
         "username": "test1",
-        "id": 2
+        "id": 2,
+        "completed": false
     },
     {
         "activity": "Text a friend you haven't talked to in a long time",
@@ -46,7 +49,8 @@ const initialActivities = [
         "participants": 1,
         "price": 0.0,
         "username": "test1",
-        "id": 3
+        "id": 3,
+        "completed": false
     },
     {
         "activity": "Meditate for five minutes",
@@ -55,7 +59,8 @@ const initialActivities = [
         "participants": 1,
         "price": 0.0,
         "username": "test1",
-        "id": 4
+        "id": 4,
+        "completed": false
     },
     {
         "activity": "Learn to play a new instrument",
@@ -64,7 +69,8 @@ const initialActivities = [
         "participants": 1,
         "price": 0.0,
         "username": "test2",
-        "id": 5
+        "id": 5,
+        "completed": false
     }
   ]
 

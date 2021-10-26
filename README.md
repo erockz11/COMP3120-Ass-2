@@ -49,9 +49,10 @@ The features included in this MVP are:
 - Activity generation based on a single criteria.
 - Leaderboard rankings.
 - User registration.
-- User authentication.
+- User authentication/logging in.
 - Adding activities to a user's account.
-- Completing activities adds points to a user's account.
+- Deleting activities to a user's account.
+- Completing activities adds points to a user's account, also saves the completed activity to a list that is displayed.
 - MongoDB integration.
 
 # Project Breakdown
@@ -76,7 +77,9 @@ The following files are located in the `src/components` folder.
 The following files are located in the `server` folder.
 
 - `data.js`: Contains sample data for testing and setup purposes.
-- `server.js`: Contains code that handles API requests.
+- `server.js`: imports app from `app.js` and listens on Port 3001.
+- `app.js`: Imports apiRouter from `./controllers/api.js` and creates an app that will handle the api calls.
+- `/controllers/api.js`: Contains all the server api routes and server functions.
 
 The following files are located in the `server/models` folder.
 
@@ -87,8 +90,15 @@ The following files are located in the `server/models` folder.
 
 The following files are located in the `utils` folder.
 
-- `for_testing.js`: Contains tests for the server functions.
+- `for_testing.js`: Contains the server functions to be used in the jest tests.
 - `pwcrypt.js`: Handles the hashing of user passwords.
+
+## tests
+The following files are located in the `tests` folder.
+
+- `api.test.js`: Contains the tests for the server API routes.
+- `calcScore.test.js`: Contains the tests for the calcScore server function.
+- `sortLB.test.js`: Contains the tests for the sortLB server function.
 
 ## API endpoints
 - `/api/leaderboard`: A GET request that returns data for the leaderboard.
@@ -96,12 +106,14 @@ The following files are located in the `utils` folder.
 - `/api/register`: A POST request that registers an account to the database.
 - `/api/addactivity/:username`: A POST request that adds an activity to the user's account.
 - `/api/login`: A POST request that handles login.
-- `/api/completeactivity`: A DELETE request that completes an activity on a user's account.
+- `/api/completeactivity`: A POST request that completes an activity on a user's account, updating their score in the process.
 - `/api/myactivities/:id`: A DELETE request that deletes an activity.
 
 # Next Steps
 
 - Combine the individual frontend forms into a single form which returns an activity meeting all parameters specified. Because the API only has endpoints which return a single random activity, this might require multiple requests until a matching activity is returned.
+
+-Deactivating user accounts. If users so choose it would be a great feature to give them the ability to deactivate their account from the site.
 
 # Summary of Team Roles/Contributions
 

@@ -16,6 +16,7 @@ app.use(cors())
 const PORT = process.env.PORT || 3001;
 const SECRET = process.env.JWT_SECRET
 
+//api endpoint to get leaderboard data
 app.get('/api/leaderboard', (request, response) => {
     User.find({})
     .then(result => {

@@ -21,17 +21,3 @@ POST http://localhost:3001/api/addactivity/test2
 Content-Type: application/json
 
 { "activity": "Go for a 5km run", "accessibility": 0.1, "type": "individual", "participants": 1, "price": 0.0}
-
-###
-
-POST http://localhost:3001/api/register
-Content-Type: application/json
-
-{ "username": "test1", "password": "0000", "score": 0 }
-
-###
-
-POST http://localhost:3001/api/register
-Content-Type: application/json
-
-{ "username": "test3", "password": "0002", "score": 0 }

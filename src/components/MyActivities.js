@@ -22,7 +22,7 @@ const MyActivities = ({loggedIn, userActivities, completeActivity, deleteActivit
                 <ul style={{listStyleType: 'none'}}>
                     {completedActivities.map(activity =>
                         <li key={activity.id}>
-                            {activity.activity} <button onClick={() => completeActivity(activity)}>Complete Activity</button> 
+                            {activity.activity}
                             <button style={{borderColor: '#ff0000'}}onClick={() => deleteActivity(activity)}>Delete Activity</button>
                         </li>)}
                 </ul>

@@ -181,6 +181,7 @@ app.post('/api/login', async (request, response) => {
     }
 })
 
+//api endpoint for completing activities
 app.delete('/api/completeactivity', async (request, response) => {
     const sentActivity = request.body
     console.log("sentActivity:", sentActivity);
@@ -212,6 +213,7 @@ app.delete('/api/completeactivity', async (request, response) => {
     response.status(200).json( { "username": user.username, "score": user.score } )
 })
 
+//api endpoint for deleting activities
 app.delete('/api/myactivities/:id', async (request, response) => {
     await Activity.findByIdAndDelete(request.params.id)
     .then(result => {

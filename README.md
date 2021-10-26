@@ -36,7 +36,7 @@ Bored people.
 
 ### How is it Used?
 
-There will be a form with drop down tables that users can use to specify the parameters of which a randomly generated activity will adhere to. If users like the activity, they can then save it to their profile. Users can then remove an activity or mark an activity as complete on their profile. Completed activities generate points and users with the most points are displayed in descending order.
+There will be a form where users can use to specify the parameters of which a randomly generated activity will adhere to. If users like the activity, they can then save it to their profile. Users can then remove an activity or mark an activity as complete on their profile. Completed activities generate points and users with the most points are displayed in descending order.
 
 ### Data sources
 
@@ -44,54 +44,69 @@ There will be a form with drop down tables that users can use to specify the par
 
 # Included in this MVP
 
-(A description of what you have been able to implement in this MVP, use your milestones to highlight what you've achieved)
+The features included in this MVP are:
+
+- Activity generation based on a single criteria.
+- Leaderboard rankings.
+- User registration.
+- User authentication.
+- Adding activities to a user's account.
+- Completing activities adds points to a user's account.
+- MongoDB integration.
 
 # Project Breakdown
 
-(A guide to the project source code - where should we look for what you have done)
+## Frontend Components
 
-## Components
-
-All components are located in the `components` folder.
+The following files are located in the `src/components` folder.
 
 - `Activity.js`: Displays information for a single activity, passed as props.
 - `ActivityForm.js`: Displays forms for filtering activity generation.
 - `AddActivityButton.js`: Displays a button for a logged in user to save an activity to My Activities.
-- `Leaderboard.js`: Component that displays score rankings of users.
-- `LoginForm.js`: Form for users to login to their accounts.
-- `MyActivities.js`: Component that displays a user's current activities.
-- `Notification.js`: Component that displays a notification to the user.
+- `Leaderboard.js`: Displays score rankings of users.
+- `LoginForm.js`: A form for users to login to their accounts.
+- `MyActivities.js`: Displays a user's current activities.
+- `Notification.js`: Displays a notification to the user.
 - `Rank.js`: Displays the given user's username and their score.
-- `RegisterForm.js`: Form for users to create an account if they do not already have one.
-- `UserDisplay.js`: When a user logs in successfully, their username is displayed by this component.
+- `RegisterForm.js`: A form for users to create an account.
+- `UserDisplay.js`: Displays a user's username if they have logged in.
 
-## Functions
+## Backend
 
-A list of functions, location and what they do 
+The following files are located in the `server` folder.
 
-- `userLogin()`: function that logins in a user, located in `App.js`
-- `userLogout()`: function that logs out a user, located in `App.js`
-- `userRegister()`: function that registers a new user, located in `App.js`
+- `data.js`: Contains sample data for testing and setup purposes.
+- `server.js`: Contains code that handles API requests.
 
-## Other Files
+The following files are located in the `server/models` folder.
 
-- `App.js`: The main file of the App.
-- `server.js`: Backend express server.
-- `services.js`: Handles HTTP requests made in the App through to the backend server.
-- `get_activities.rest`: File for sending http requests to test the server api endpoints. Located in the `requests` folder under root.
-- `login_tests.rest`: File for sending http requests to test the login api endpoint. Located in the `requests` folder under root.
+- `activities.js`: Handles connecting to the activities schema on MongoDB.
+- `users.js`: Handles connecting to the users schema on MongoDB.
 
-# API endpoints
-- `/api/myactivities/:user`: A GET request that returns all of the users saved activities.
-- `/api/addactivity/:user`: A POST request that adds an activity that the users wants to save to their activities list.
-- `/api/login`: A POST request that handles the login function of this application.
+## Utilities
+
+The following files are located in the `utils` folder.
+
+- `for_testing.js`: Contains tests for the server functions.
+- `pwcrypt.js`: Handles the hashing of user passwords.
+
+## API endpoints
+- `/api/leaderboard`: A GET request that returns data for the leaderboard.
+- `/api/myactivities/:username`: A GET request that returns all activities for a user.
+- `/api/register`: A POST request that registers an account to the database.
+- `/api/addactivity/:username`: A POST request that adds an activity to the user's account.
+- `/api/login`: A POST request that handles login.
+- `/api/completeactivity`: A DELETE request that completes an activity on a user's account.
+- `/api/myactivities/:id`: A DELETE request that deletes an activity.
 
 # Next Steps
-
-(A summary of what your next steps would be if you were to continue the project)
 
 - Combine the individual frontend forms into a single form which returns an activity meeting all parameters specified. Because the API only has endpoints which return a single random activity, this might require multiple requests until a matching activity is returned.
 
 # Summary of Team Roles/Contributions
 
-(A summary of the main roles and contributions of each team member and how you managed interaction and communication through the project)
+Jaime: Frontend, Backend, Database\
+Josh: Frontend, Backend, Styling\
+Sahana: Frontend, Styling\
+Scott: Frontend, Backend
+

@@ -1,5 +1,6 @@
 import React from 'react'
 
+//component that displays various notifications
 const Notification = ({ message, type }) => {
     // display a notification with `message` and styling specified by `type` (styled in ../index.css)
     // valid types: `success`, `error`, `notice`

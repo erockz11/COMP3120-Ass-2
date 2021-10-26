@@ -1,6 +1,7 @@
 import React from 'react'
 
 //component to allow the user to login using a username and password
+//blank if there is a user logged in
 const LoginForm = ({loginFn, setUserFn, user, loggedIn}) => {
 
     const handleUsername = (event) => {

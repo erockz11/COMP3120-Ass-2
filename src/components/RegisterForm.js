@@ -2,6 +2,7 @@ import React from 'react'
 import Services from '../services/services'
 
 //component to allow the user to login using a username and password
+//blank if there is a user logged in
 const RegisterForm = ({setLoggedIn, newUser, setNewUser, setUser, setUserActivities, loggedIn, showNotification}) => {
 
     const userRegister = (event) => {

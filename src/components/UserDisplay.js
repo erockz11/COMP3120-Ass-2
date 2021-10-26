@@ -1,8 +1,8 @@
 import React from 'react'
 
 //component to display the username of a user who is logged in
-//or to display Not Logged In if the user is not logged in
-//also has a button that lets the user logout
+//shows "Not Logged In" if no one has logged in
+//also contains the log out button
 const UserDisplay = ({user, loggedIn, logoutFn}) => {
     
     const handleClick = () => {

@@ -1,5 +1,7 @@
 import React from 'react'
 
+//component that displays a user's saved activities
+//shows "Not Logged In" if no one has logged in
 const MyActivities = ({loggedIn, userActivities, completeActivity, deleteActivity}) => {
 
     if(loggedIn) {

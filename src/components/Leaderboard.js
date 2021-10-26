@@ -1,6 +1,7 @@
 import React from 'react'
 import Rank from './Rank.js'
 
+//component that displays the leaderboard rankings
 const Leaderboard = (props) => {
 
     return (

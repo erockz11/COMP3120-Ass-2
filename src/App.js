@@ -83,13 +83,11 @@ const App = () => {
     } else {
       console.log("no participant value selected");
       //display notification to select an option in the form
-      // alert("Please select number of participants.")
       showNotification("Please select number of participants.", "error", true)
     }
   }
 
   //function that returns an activity within the specified price range
-  //note the API currently doesn't have anything with price = 1.0
   const findActivityByPrice = (event) => {
     event.preventDefault()
     showNotification("Getting activity...", "notice", false)
@@ -135,6 +133,7 @@ const App = () => {
       })
   }
 
+  //function that deletes a user's saved activity
   const deleteActivity = (activity) => {
     if (window.confirm(`Are you sure you want to delete "${activity.activity}"?`)) {
       services.deleteActivity(activity)
@@ -163,7 +162,6 @@ const App = () => {
     })
     .catch(error => {
       console.log("error: ", error)
-      // alert("Wrong username or password.")
       showNotification("Wrong username or password.", "error", true)
     })
 

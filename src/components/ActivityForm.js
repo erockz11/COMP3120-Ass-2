@@ -1,5 +1,6 @@
 import React from 'react'
 
+//component that displays the form used to generate activities
 const ActivityForm = ({ setActivityType, setActivityParticipants, setActivityPrice, findActivityByParticipants, findActivityByPrice, findActivityByType, findRandom }) => {
     return (
         <div className="container-fluid" style={{marginBottom: '50px'}}>

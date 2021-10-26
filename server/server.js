@@ -136,6 +136,7 @@ app.post('/api/addactivity/:username', async (request,response) => {
             "participants": sentActivity.participants,
             "price": sentActivity.price,
             "username": user,
+            "completed": false
         })
     
         console.log(newActivity.activity)
@@ -197,12 +198,15 @@ app.post('/api/login', async (request, response) => {
     }
 })
 
-//api endpoint for completing activities
-app.delete('/api/completeactivity', async (request, response) => {
-    const sentActivity = request.body
-    console.log("sentActivity:", sentActivity);
+//changing this to a post request
+app.post('/api/completeactivity', async (request, response) => {
+    const sentActivity = request.body.data
+    console.log("sentActivity username:", sentActivity.username);
 
-    let user = await User.findOne( {"username": sentActivity.username })
+    let user = await User.findOne( {"username": sentActivity.username } )
+    .catch(error => {
+        console.log("couldn't find one:", error)
+    })
 
     console.log("user:", user)
 
@@ -222,19 +226,21 @@ app.delete('/api/completeactivity', async (request, response) => {
         response.status(401).end("could not find user",error)
     })
 
+    console.log("my updated activity:", user)
+
     //const act = await Activity.findById( {"_id": id } ).then(result => {
         //console.log(result)
         //return result
     //})
 
-    let activity = await Activity.findByIdAndDelete( sentActivity.id )
+    let activity = await Activity.findOneAndUpdate( { "_id":sentActivity.id }, {$set: { "completed": true }}, {new: true} )
     .catch(error => {
         response.status(401).end("activity not found")
     })
 
-    console.log("Did we delete?")
+    console.log("Did we update?", activity)
 
-    response.status(200).json( { "username": user.username, "score": user.score } )
+    response.status(200).json( { "user": { "username": user.username, "score": user.score }, "activity": activity } )
 })
 
 //api endpoint for deleting activities

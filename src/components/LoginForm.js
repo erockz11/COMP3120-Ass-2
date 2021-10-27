@@ -23,7 +23,7 @@ const LoginForm = ({loginFn, setUserFn, user, loggedIn}) => {
     if(loggedIn) {
         return (
             <div>
-
+              <h1 style={{padding: '300px'}}>Logged In</h1>
             </div>
         )
     } else {

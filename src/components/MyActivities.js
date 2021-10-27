@@ -14,16 +14,16 @@ const MyActivities = ({loggedIn, userActivities, completeActivity, deleteActivit
                     {activitiesToComplete.map(activity =>
                         <li key={activity.id}>
                             {activity.activity} <button onClick={() => completeActivity(activity)}>Complete Activity</button> 
-                            <button style={{borderColor: '#ff0000'}}onClick={() => deleteActivity(activity)}>Delete Activity</button>
+                            <button style={{borderColor: '#ff0000', marginLeft: '5px', borderWidth: '1.5px'}}onClick={() => deleteActivity(activity)}>Delete Activity</button>
                         </li>)}
                 </ul>
 
-                <h1>My Completed Activities</h1>
+                <h1 style={{fontSize: '25px', marginBottom: '0px'}}>My Completed Activities</h1>
                 <ul style={{listStyleType: 'none'}}>
                     {completedActivities.map(activity =>
-                        <li key={activity.id}>
+                        <li style={{fontSize: '10px', color: '#13A72D'}} key={activity.id}>
                             {activity.activity}
-                            <button style={{borderColor: '#ff0000'}}onClick={() => deleteActivity(activity)}>Delete Activity</button>
+                            <button style={{borderColor: '#ff0000', borderWidth: '1.5px', fontSize: '10px', padding: '0 5px', margin: '5px'}}onClick={() => deleteActivity(activity)}>Delete Activity</button>
                         </li>)}
                 </ul>
             </div>

@@ -38,9 +38,9 @@ const sortLB = (newList) => {
     return newList
 }
 
+//grabs the user token from a request
 const getTokenFrom = request => {
     const authorization = request.get('authorization')
-    console.log("authorisation: ",authorization)
     if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
       return authorization.substring(7)
     }
@@ -57,7 +57,6 @@ apiRouter.get('/api/myactivities/:username', async (request,response) => {
     
     if(isUser) {
         let userActivities = await Activity.find({"username": isUser.username})
-        //console.log(userActivities)
         response.json(userActivities)
     } else {
         response.status(401).end("Unauthorized response")
@@ -149,29 +148,28 @@ async function getUser(user) {
 apiRouter.post('/api/login', async (request, response) => {
 
     let {username, password} = request.body
-    console.log(username)
 
+    //find user from db
     let user = await getUser(username).catch(error => {
         console.log(error)
     })
-    console.log("My user is:")
-    console.log(user.password)
-    console.log(password)
 
+    //if user name does not exist, return 401
     if(!user) {
         return response.status(401).json({error: "invalid username or password"})
     }
-  
+    
+    //compare the user password with the encrypted password on the db
     if(await bcrypt.compare(password, user.password)) {
       const userForToken = {
         id: user.id,
         username: user.username
       }
+      //create a user token and send success (logged in) back to frontend
       const token = jwt.sign(userForToken, SECRET)
         return response.status(200).json({token, username: user.username})
 
     } else {
-        console.log("2nd rejection")
         return response.status(401).json({error: "invalid username or password"})
     }
 })
@@ -184,7 +182,7 @@ apiRouter.post('/api/completeactivity', async (request, response) => {
     .catch(error => {
         console.log("couldn't find one:", error)
     })
-
+    //verify user has the correct token
     const token = getTokenFrom(request)
     const decodedToken = jwt.verify(token, SECRET)
 
@@ -192,13 +190,14 @@ apiRouter.post('/api/completeactivity', async (request, response) => {
         return response.status(401).json({ error: 'token missing or invalid' })
     }
 
+    //generate the score for the completed activity
     let activityScore = calcScore(sentActivity.participants, sentActivity.accessibility, user.score)
-
+    //update user score
     user = await User.findOneAndUpdate( { "username": sentActivity.username }, { $set: { "score": activityScore } }, { new: true } )
     .catch(error => {
         response.status(401).end("could not find user",error)
     })
-
+    //update activity to completed
     let activity = await Activity.findOneAndUpdate( { "_id":sentActivity.id }, {$set: { "completed": true }}, {new: true} )
     .catch(error => {
         response.status(401).end("activity not found")

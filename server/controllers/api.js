@@ -8,7 +8,6 @@ const Pwcrypt =  require('../../utils/pwcrypt')
 
 
 const apiRouter = express.Router()
-//apiRouter.use(cors())
 
 const SECRET = process.env.JWT_SECRET
 
@@ -26,9 +25,8 @@ apiRouter.get('/api/leaderboard', (request, response) => {
 
         //Sorts by score in descending order
         newList = sortLB(newList)
-
-        console.log('new: ', newList)
         response.json(newList)
+
     }).catch(error => {
         console.log(error)
     })
@@ -52,11 +50,11 @@ const getTokenFrom = request => {
 //api endpoint to return all activities for a user
 apiRouter.get('/api/myactivities/:username', async (request,response) => {
     const user = request.params.username
-    //console.log(user)
+    
     let isUser = await getUser(user).catch(error => {
-        //console.log(error)
+        console.log(error)
     })
-    //console.log(isUser)
+    
     if(isUser) {
         let userActivities = await Activity.find({"username": isUser.username})
         //console.log(userActivities)
@@ -69,13 +67,12 @@ apiRouter.get('/api/myactivities/:username', async (request,response) => {
 //api endpoint to add a user and password to db
 apiRouter.post('/api/register', async (request,response) => {
     const newUser = request.body
-    console.log(newUser.password)
+    
     //hash the password
     const hashedPassword = await Pwcrypt.encryptPassword(newUser)
         .catch(error => {
             console.log(error)
     })
-    console.log(hashedPassword)
 
     //create a new User record to save to db
     const regUser = new User({
@@ -84,17 +81,13 @@ apiRouter.post('/api/register', async (request,response) => {
         "score": 0
     })
 
-    
-    console.log("this is my password?")
-    console.log(regUser.password)
     //save record to db, error if not username taken
     await regUser.save()
     .then(result => {
-        console.log("user saved")
         const userForToken = {
             id: result.id,
             username: result.username
-          }
+        }
         const token = jwt.sign(userForToken, SECRET)
         response.send( {token, "username": result.username, "score": result.score } )
     }).catch(error => {
@@ -107,17 +100,15 @@ apiRouter.post('/api/register', async (request,response) => {
 apiRouter.post('/api/addactivity/:username', async (request,response) => {
     //get the username from the url
     const user = request.params.username
-    console.log(user)
     //check if the user exists
     const isUser = await getUser(user).catch(error => {
         console.log(error)
     })
-    console.log(isUser)
+
     //get the activity from the request body
     const sentActivity = request.body
 
     if(isUser){
-
         const token = getTokenFrom(request)
         const decodedToken = jwt.verify(token, SECRET)
         if (!token || !decodedToken.id) {
@@ -135,10 +126,8 @@ apiRouter.post('/api/addactivity/:username', async (request,response) => {
             "completed": false
         })
     
-        console.log(newActivity.activity)
         //save record to the db
         newActivity.save().then(result => {
-            console.log("record saved")
             response.send(result);
         })
         
@@ -151,9 +140,6 @@ apiRouter.post('/api/addactivity/:username', async (request,response) => {
 //returns a User record from the db, null if not found
 async function getUser(user) {
     let checkIfUser = await User.findOne({"username": user}).then(result => {
-        console.log("check this")
-        console.log(result)
-        console.log()
         return result
     })
     return checkIfUser
@@ -173,21 +159,17 @@ apiRouter.post('/api/login', async (request, response) => {
     console.log(password)
 
     if(!user) {
-        console.log("1st reject")
         return response.status(401).json({error: "invalid username or password"})
     }
   
     if(await bcrypt.compare(password, user.password)) {
-        console.log("password is good")
-  
       const userForToken = {
         id: user.id,
         username: user.username
       }
       const token = jwt.sign(userForToken, SECRET)
-  
         return response.status(200).json({token, username: user.username})
-        // return response.status(200).json({username: user.username})
+
     } else {
         console.log("2nd rejection")
         return response.status(401).json({error: "invalid username or password"})
@@ -197,44 +179,30 @@ apiRouter.post('/api/login', async (request, response) => {
 //changing this to a post request
 apiRouter.post('/api/completeactivity', async (request, response) => {
     const sentActivity = request.body.data
-    console.log("sentActivity username:", sentActivity.username);
 
     let user = await User.findOne( {"username": sentActivity.username } )
     .catch(error => {
         console.log("couldn't find one:", error)
     })
 
-    console.log("user:", user)
-
     const token = getTokenFrom(request)
-    console.log('request: ',request.body)
-    console.log('token: ',token)
     const decodedToken = jwt.verify(token, SECRET)
+
     if (!token || !decodedToken.id) {
         return response.status(401).json({ error: 'token missing or invalid' })
     }
 
     let activityScore = calcScore(sentActivity.participants, sentActivity.accessibility, user.score)
-    console.log("activityScore:", activityScore)
 
     user = await User.findOneAndUpdate( { "username": sentActivity.username }, { $set: { "score": activityScore } }, { new: true } )
     .catch(error => {
         response.status(401).end("could not find user",error)
     })
 
-    console.log("my updated activity:", user)
-
-    //const act = await Activity.findById( {"_id": id } ).then(result => {
-        //console.log(result)
-        //return result
-    //})
-
     let activity = await Activity.findOneAndUpdate( { "_id":sentActivity.id }, {$set: { "completed": true }}, {new: true} )
     .catch(error => {
         response.status(401).end("activity not found")
     })
-
-    console.log("Did we update?", activity)
 
     response.status(200).json( { "user": { "username": user.username, "score": user.score }, "activity": activity } )
 })
@@ -252,9 +220,6 @@ apiRouter.delete('/api/myactivities/:id', async (request, response) => {
 
 //function that calculates score to be added
 const calcScore = (participants, accessibility, score) => {
-    console.log("accessibility is:",accessibility)
-    console.log("participants is:",participants)
-    console.log("score is:",score)
     score += (accessibility * 10) + participants
     return score
 }

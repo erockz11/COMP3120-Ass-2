@@ -36,10 +36,10 @@ The layout and content of the home screen is the same as the logged out view, ex
 This page remains the same as the logged out version, however when an activity is complete it automatically adds points to the relevant user and adjusts the list accordingly.
 
 ### My Activities (Image 7)
-There are two h1 headings present, one displays user activities (pending) and the other is for completed tasks. Beside user activities there are two buttons, one to complete the activity (which then is moved to the completed list) or delete the activity. If the activity is complete, the leaderboard updates. Deletion has neither a positive nor negative effect. There is also an option to delete completed activities, as one activity cannot be completed twice. Completed activities are green in colour.
+There are two h1 headings present, one displays user activities, and the other is for completed tasks. Beside user activities there are two buttons, one to complete the activity (which then is moved to the completed list) or delete the activity. If the activity is complete, the leaderboard updates. Deletion has neither a positive nor negative effect. There is also an option to delete completed activities, as one activity cannot be completed twice. Completed activities are green in colour.
 
 ### Log In/Register (Image 8)
-This page is blank as the user is logged in. They may choose to log out using the universally displayed log out button, in which case the login and register forms will regenerate. 
+This page only displays a h1 informing the user that they are logged in. They may choose to log out using the universally displayed log out button, in which case the login and register forms will regenerate. 
 
 -----------------------------------------------------------------------
 

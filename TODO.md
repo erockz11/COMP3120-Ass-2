@@ -22,7 +22,10 @@ Leaderboard integration (backend/frontend): Scott (done)\
 Continue working on styling/UI: Josh (layout and displayed activity info - done), Sahana
 
 # Week 12 todo
-Refactor server: Jaime (todo)\
+Refactor server: Jaime (done)\
+Complete user token auth: Scott(Lead)/Jaime (done)\
+Add new feature to save completed activities for display: Jaime (done)\
+Add new feature to delete activities: Josh (done)\
 Add more tests: Jaime/Scott/Josh/Sahana (todo)\
 Polish Frontend: (todo)\
 Polish style: (todo)\
